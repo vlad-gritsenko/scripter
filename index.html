@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Builder - Multi-Stage Generation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#ec4899',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="border-b border-gray-800 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1
+                        class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                        Script Builder
+                    </h1>
+                    <p class="text-sm text-gray-400 mt-1">Multi-stage script generation with customizable parameters</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <!-- Template Selector -->
+                    <div class="flex items-center gap-2">
+                        <select id="templateSelect"
+                            class="px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none min-w-[160px]">
+                            <option value="default">Default Template</option>
+                        </select>
+                        <button id="newTemplateBtn" class="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
+                            title="New Template">
+                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </button>
+                        <button id="renameTemplateBtn" class="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
+                            title="Rename Template">
+                            <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                            </svg>
+                        </button>
+                        <button id="deleteTemplateBtn" class="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
+                            title="Delete Template">
+                            <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Theme Toggle -->
+                    <button id="themeToggleBtn" class="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
+                        title="Toggle Theme">
+                        <svg id="themeIconDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="themeIconLight" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                    <button id="settingsBtn" class="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
+                        title="API Settings">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal"
+        class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div
+            class="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold">Settings</h2>
+                <button id="closeSettings" class="p-1 hover:bg-gray-800 rounded-lg transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="space-y-6">
+                <!-- API Key -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">OpenRouter API Key</label>
+                    <input type="password" id="apiKeyInput" placeholder="sk-or-..."
+                        class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all">
+                </div>
+
+                <!-- Model Selection for Each Stage -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">
+                            <span class="inline-flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                Outline Model
+                            </span>
+                        </label>
+                        <select id="outlineModelSelect"
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                            <option value="anthropic/claude-sonnet-4.5">Claude Sonnet 4.5</option>
+                            <option value="anthropic/claude-opus-4.5">Claude Opus 4.5</option>
+                            <option value="anthropic/claude-opus-4.1">Claude Opus 4.1</option>
+                            <option value="google/gemini-3-pro-preview">Gemini 3 Pro Preview</option>
+                            <option value="google/gemini-2.5-pro-preview">Gemini 2.5 Pro</option>
+                            <option value="google/gemini-2.5-flash-preview">Gemini 2.5 Flash</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">
+                            <span class="inline-flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                Script Model
+                            </span>
+                        </label>
+                        <select id="scriptModelSelect"
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                            <option value="anthropic/claude-sonnet-4.5">Claude Sonnet 4.5</option>
+                            <option value="anthropic/claude-opus-4.5">Claude Opus 4.5</option>
+                            <option value="anthropic/claude-opus-4.1">Claude Opus 4.1</option>
+                            <option value="google/gemini-3-pro-preview">Gemini 3 Pro Preview</option>
+                            <option value="google/gemini-2.5-pro-preview">Gemini 2.5 Pro</option>
+                            <option value="google/gemini-2.5-flash-preview">Gemini 2.5 Flash</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">
+                            <span class="inline-flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                Hook Model
+                            </span>
+                        </label>
+                        <select id="hookModelSelect"
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                            <option value="anthropic/claude-sonnet-4.5">Claude Sonnet 4.5</option>
+                            <option value="anthropic/claude-opus-4.5">Claude Opus 4.5</option>
+                            <option value="anthropic/claude-opus-4.1">Claude Opus 4.1</option>
+                            <option value="google/gemini-3-pro-preview">Gemini 3 Pro Preview</option>
+                            <option value="google/gemini-2.5-pro-preview">Gemini 2.5 Pro</option>
+                            <option value="google/gemini-2.5-flash-preview">Gemini 2.5 Flash</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Temperature -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Temperature: <span
+                            id="tempValue">0.8</span></label>
+                    <input type="range" id="temperatureSlider" min="0" max="2" step="0.1" value="0.8"
+                        class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+                </div>
+
+                <button id="saveSettings"
+                    class="w-full py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg font-medium transition-colors">
+                    Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Left Panel: Configuration -->
+            <div class="lg:col-span-4 space-y-4">
+
+                <!-- Prompt Template -->
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                            </path>
+                        </svg>
+                        Niche Prompt
+                    </h2>
+                    <div>
+                        <textarea id="promptTemplate" rows="4"
+                            placeholder="Enter video topic/niche here...&#10;&#10;Example: The psychology of procrastination and practical strategies to overcome it."
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none transition-all text-sm"></textarea>
+                    </div>
+                </div>
+
+                <!-- Script Length -->
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
+                    <h3 class="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h7"></path>
+                        </svg>
+                        Script Length (characters)
+                    </h3>
+                    <input type="number" id="scriptLengthInput" min="500" max="200000" step="100" value="5000"
+                        class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-sm"
+                        placeholder="Enter character count...">
+                </div>
+
+                <!-- Storytelling Prompt (Collapsible) -->
+                <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+                    <button type="button" onclick="toggleSection('storytellingSection')"
+                        class="w-full p-4 flex items-center justify-between hover:bg-gray-800/50 transition-colors">
+                        <h3 class="text-sm font-semibold text-gray-300 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                            Storytelling Prompt
+                        </h3>
+                        <svg id="storytellingSectionIcon" class="w-4 h-4 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="storytellingSection" class="hidden px-4 pb-4">
+                        <textarea id="storytellingPromptInput" rows="6"
+                            placeholder="Rules and principles for writing scripts..."
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-y transition-all text-sm"></textarea>
+                    </div>
+                </div>
+
+                <!-- Hook Prompt (Collapsible) -->
+                <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+                    <button type="button" onclick="toggleSection('hookSection')"
+                        class="w-full p-4 flex items-center justify-between hover:bg-gray-800/50 transition-colors">
+                        <h3 class="text-sm font-semibold text-gray-300 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            Hook Prompt
+                        </h3>
+                        <svg id="hookSectionIcon" class="w-4 h-4 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="hookSection" class="hidden px-4 pb-4">
+                        <textarea id="hookPromptInput" rows="6"
+                            placeholder="Rules and principles for writing hooks..."
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-y transition-all text-sm"></textarea>
+                    </div>
+                </div>
+
+                <!-- Parameters -->
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-sm font-semibold text-gray-300">Script Parameters</h3>
+                        <div class="flex items-center gap-2">
+                            <button id="saveParamsBtn"
+                                class="text-xs text-green-400 hover:text-green-300 transition-colors flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
+                                    </path>
+                                </svg>
+                                Save
+                            </button>
+                            <button id="randomizeParamsBtn"
+                                class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors">Randomize</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Narrative Style -->
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Narrative Style</label>
+                            <select id="narrativeStyleSelect"
+                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                        </div>
+
+                        <!-- Structure -->
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Structure</label>
+                            <select id="structureSelect"
+                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                        </div>
+
+                        <!-- Tone -->
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Emotional Tone</label>
+                            <select id="toneSelect"
+                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                        </div>
+
+                        <!-- Hook Type -->
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Hook Type</label>
+                            <select id="hookTypeSelect"
+                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                        </div>
+
+                        <!-- Constraint -->
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Special Constraint</label>
+                            <select id="constraintSelect"
+                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button id="generateBtn"
+                    class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:from-gray-700 disabled:to-gray-700 disabled:cursor-not-allowed rounded-xl font-semibold transition-all flex items-center justify-center gap-2 text-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Generate Script
+                </button>
+            </div>
+
+            <!-- Center/Right Panel: Output -->
+            <div class="lg:col-span-8 space-y-4">
+
+                <!-- Progress Stepper -->
+                <div id="progressSection" class="bg-gray-900 border border-gray-800 rounded-xl p-5 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <!-- Step 1: Outline -->
+                        <div class="flex-1 flex flex-col items-center">
+                            <div id="step1Circle"
+                                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
+                                <span id="step1Icon" class="text-gray-400">1</span>
+                            </div>
+                            <span class="text-xs text-gray-400">Outline</span>
+                        </div>
+                        <div id="step1Line" class="flex-1 h-1 bg-gray-700 mx-2 transition-all"></div>
+                        <!-- Step 2: Script -->
+                        <div class="flex-1 flex flex-col items-center">
+                            <div id="step2Circle"
+                                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
+                                <span id="step2Icon" class="text-gray-400">2</span>
+                            </div>
+                            <span class="text-xs text-gray-400">Script</span>
+                        </div>
+                        <div id="step2Line" class="flex-1 h-1 bg-gray-700 mx-2 transition-all"></div>
+                        <!-- Step 3: Hook -->
+                        <div class="flex-1 flex flex-col items-center">
+                            <div id="step3Circle"
+                                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
+                                <span id="step3Icon" class="text-gray-400">3</span>
+                            </div>
+                            <span class="text-xs text-gray-400">Hook</span>
+                        </div>
+                    </div>
+                    <!-- Progress Bar -->
+                    <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div id="progressBar"
+                            class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
+                            style="width: 0%"></div>
+                    </div>
+                    <p id="progressStatus" class="text-sm text-gray-400 mt-3 text-center">Ready to generate...</p>
+                </div>
+
+                <!-- Output Tabs -->
+                <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden !mt-0">
+                    <!-- Tabs -->
+                    <div class="flex border-b border-gray-800">
+                        <button id="tabOutline"
+                            class="flex-1 px-4 py-3 text-sm font-medium text-gray-400 hover:text-gray-200 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                            Outline
+                        </button>
+                        <button id="tabScript"
+                            class="flex-1 px-4 py-3 text-sm font-medium text-gray-400 hover:text-gray-200 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            Script
+                        </button>
+                        <button id="tabHook"
+                            class="flex-1 px-4 py-3 text-sm font-medium text-gray-400 hover:text-gray-200 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                            Hook
+                        </button>
+                        <button id="tabFinal"
+                            class="flex-1 px-4 py-3 text-sm font-medium text-indigo-400 border-b-2 border-indigo-400 transition-colors flex items-center justify-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                            Final Script
+                        </button>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-5">
+                        <!-- Empty State -->
+                        <div id="emptyState" class="text-center py-16">
+                            <div
+                                class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-400 mb-2">No script generated yet</h3>
+                            <p class="text-sm text-gray-500 mb-4">Enter your prompt and configure parameters, then click
+                                "Generate Script"</p>
+                        </div>
+
+                        <!-- Outline Content -->
+                        <div id="outlineContent" class="hidden">
+                            <div id="outlineText"
+                                class="prose prose-invert max-w-none text-gray-300 leading-relaxed whitespace-pre-wrap">
+                            </div>
+                        </div>
+
+                        <!-- Script Content -->
+                        <div id="scriptContent" class="hidden">
+                            <div id="scriptText" class="prose prose-invert max-w-none text-gray-200 leading-relaxed">
+                            </div>
+                        </div>
+
+                        <!-- Hook Content -->
+                        <div id="hookContent" class="hidden">
+                            <div id="hookText"
+                                class="prose prose-invert max-w-none text-gray-200 leading-relaxed text-lg"></div>
+                        </div>
+
+                        <!-- Final Script Content -->
+                        <div id="finalContent" class="hidden">
+                            <div id="finalText" class="prose prose-invert max-w-none text-gray-200 leading-relaxed">
+                            </div>
+                        </div>
+
+                        <!-- Action Bar -->
+                        <div id="actionBar"
+                            class="hidden flex items-center justify-between mt-6 pt-4 border-t border-gray-800">
+                            <div class="flex items-center gap-4 text-sm text-gray-500">
+                                <span id="wordCount">0 words</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button id="copyBtn"
+                                    class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                    Copy
+                                </button>
+                                <button id="downloadBtn"
+                                    class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4">
+                                        </path>
+                                    </svg>
+                                    Download
+                                </button>
+                                <button id="regenerateBtn"
+                                    class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-sm transition-colors flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                                        </path>
+                                    </svg>
+                                    Regenerate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

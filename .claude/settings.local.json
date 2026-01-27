@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(start \"\" \"D:\\\\Scripter\\\\index.html\")",
+      "Bash(node --check:*)"
+    ]
+  }
+}

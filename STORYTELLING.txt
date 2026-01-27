@@ -1,0 +1,139 @@
+{
+  "storytelling_prompt_instructions": {
+    "core_principle": {
+      "foundation": "Base all storytelling decisions on the expectations versus reality framework",
+      "rule": "Reality must consistently meet or exceed audience expectations to maintain engagement",
+      "application": "Every narrative element should be evaluated against what the audience anticipates versus what is delivered"
+      "common": "Do not put name of the text sections, for example Part 1, Hook, Main Part and so on, do not put timestamps in text. Script should contain only the story itself. Avoid symbols. Don't use tags: speak, break, emphasis and any other SSML tags. Don't capitalize entire words: instead of important, write important. Limit exclamations: no more than one exclamation mark in a row. Don't put the entire sentence in quotation marks: This is an error, not 'This is an error'. Abbreviations and special characters in words: Control Z instead of Ctrl plus Z. Fifty percent instead of fifty percent sign. First of February two thousand and twenty-three instead of zero one slash zero two slash two thousand and twenty-three. Example dot com slash page instead of example dot com slash page. Don't insert ellipses and em dashes in a row. Avoid non-standard characters and diacritics. Write short sentences. No more than eight hundred characters per block. Do not include anything that does not need to be pronounced."},
+    "structural_framework": {
+      "five_step_process": {
+        "step_1_packaging": {
+          "components": [
+            "Define a clear one-line concept that addresses a specific need or creates compelling curiosity",
+            "Establish a title that triggers an irresistible curiosity loop before writing begins",
+            "Ensure the title sets clear expectations for incoming content",
+            "Develop packaging elements that can be confirmed and exceeded in the opening"
+          ],
+          "sequencing": "Complete packaging definition before proceeding to outline creation"
+        },
+        "step_2_outline": {
+          "approach": [
+            "Create a bulleted outline before writing any full script",
+            "Verify each point offers unique, differentiated, or novel value",
+            "Eliminate points that merely summarize or regurgitate common knowledge",
+            "Structure each point with what it is, why it matters, and how it connects to the overall narrative",
+            "Refuse to proceed without genuinely unique insights in the outline"
+          ],
+          "principle": "Measure twice, cut once—validate uniqueness before investing in full script development"
+        },
+        "step_3_intro": {
+          "framework_components": [
+            "Provide immediate context confirming the core premise",
+            "Establish the conventional belief or common understanding",
+            "Present a contrarian perspective that contradicts common assumptions",
+            "Offer credible proof supporting your authority or approach",
+            "Present a clear plan or structure for delivering on the promise"
+          ],
+          "objective": "Build an irresistible curiosity loop where each line compels progression to the next",
+          "confirmation_principle": "The opening must confirm initial expectations while simultaneously raising them through superior positioning"
+        },
+        "step_4_body": {
+          "content_organization": [
+            "Position your second-best point first to establish strong initial value",
+            "Place your strongest point second to create an ascending value pattern",
+            "Arrange remaining points in descending order of impact",
+            "Apply this sequencing to leverage pattern recognition psychology"
+          ],
+          "value_loop_structure": [
+            "Context: Define what the point is with maximum simplicity",
+            "Application: Demonstrate how to implement using relevant examples",
+            "Framing: Explain why this matters within the larger narrative"
+          ],
+          "retention_tactics": [
+            "Create mini-hooks between points to maintain continuous engagement",
+            "Establish dependencies between points to necessitate continued viewing",
+            "Alternate between big-picture framing and tactical depth",
+            "Maintain a rhythmic wave pattern of zoom-in and zoom-out perspectives"
+          ]
+        },
+        "step_5_outro": {
+          "objectives": [
+            "Summarize key points to reinforce value delivery",
+            "Remind the audience of problems solved or insights gained",
+            "Leave with a final high note that confirms reality exceeded expectations",
+            "Create lasting positive impression to drive engagement actions"
+          ]
+        }
+      }
+    },
+    "story_flow_optimization": {
+      "principles": [
+        "Maintain a clear through-line from beginning to end",
+        "Eliminate all unnecessary details that break narrative connectivity",
+        "Audit every line to determine if it advances understanding or distracts",
+        "Remove tangents and flashbacks that fragment the primary storyline",
+        "Create hypnotic engagement by keeping focus on the single main plot"
+      ],
+      "execution": "After drafting, review line-by-line asking: does this advance the core narrative or serve as a distraction?"
+    },
+    "comprehension_maximization": {
+      "tactical_methods": [
+        "Use vocabulary targeting a basic reading level",
+        "Employ shorter sentences to reduce cognitive load",
+        "Utilize active voice over passive constructions",
+        "Restate complex concepts in simpler terms immediately after introduction",
+        "Name frameworks and concepts with memorable single-word labels",
+        "Compress complex ideas into their simplest communicable form"
+      ],
+      "philosophy": "The goal is to make the audience feel intelligent, not to demonstrate superior knowledge"
+    },
+    "pacing_and_tension": {
+      "techniques": [
+        "Cut ruthlessly—remove any content that doesn't build toward the climax",
+        "Open curiosity loops and strategically close them to maintain engagement",
+        "Vary emotional tone across the full spectrum to create dynamic pacing",
+        "Build anticipation for upcoming content through strategic foreshadowing",
+        "Implement rehooks at regular intervals to reset and elevate interest"
+      ],
+      "speed_to_value": [
+        "Signal value within the opening seconds",
+        "Ensure the first body point after the intro delivers exceptional insight",
+        "Structure content as: hook (establish value) → body (deliver clearly) → rehook (re-trigger value) → repeat → outro",
+        "Demonstrate value continuously rather than delaying gratification"
+      ]
+    },
+    "native_integration": {
+      "call_to_action_embedding": [
+        "Identify which points naturally align with resource offerings",
+        "Frame the pain point and present your resource as the organic solution",
+        "Integrate promotions seamlessly without breaking narrative flow",
+        "Offer resources that genuinely solve or enhance the discussed concepts"
+      ]
+    },
+    "arc_architecture": {
+      "three_part_structure": [
+        "Introduction: establish context and hook engagement",
+        "Climax: build to the single most important revelatory point",
+        "Resolution: provide closure while affirming value delivered"
+      ],
+      "tension_building": "Every element should escalate toward the singular climactic insight or revelation"
+    },
+    "universal_principles": {
+      "quality_standards": [
+        "Uniqueness is non-negotiable—offer genuinely new perspectives or applications",
+        "Clarity trumps complexity—simpler communication increases impact",
+        "Pattern recognition drives retention—create predictable value escalation",
+        "Emotional engagement sustains attention—vary tone strategically",
+        "Passion is invisible but essential—genuine enthusiasm for the material elevates execution"
+      ]
+    },
+    "execution_philosophy": {
+      "creative_approach": [
+        "Invest energy in loving the material being created",
+        "If struggling with complexity or lack of enjoyment, restart with simplified focus",
+        "Balance strategic topic selection with genuine personal investment",
+        "Allow the outline to guide natural script flow rather than forcing structure"
+      ]
+    }
+  }
+}

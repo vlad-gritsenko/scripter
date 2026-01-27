@@ -1,0 +1,596 @@
+{
+  "hook_writing_system": {
+    "core_objective": "Generate hooks that deliver topic clarity and on-target curiosity within the first 30 seconds of content",
+    "success_criteria": [
+      "Topic Clarity: Reader/listener instantly understands what the content is about",
+      "On-Target Curiosity: Reader/listener believes the content is for them and wants to know what comes next"
+    ],
+    "primary_formulas": {
+      "five_step_hook_long_form": {
+        "use_case": "Long-form content, YouTube videos, blog posts, articles",
+        "steps": [
+          {
+            "step": 1,
+            "name": "Interest Spark",
+            "duration": "4-8 seconds / 1-2 sentences",
+            "purpose": "Immediately confirm the topic and spark interest",
+            "techniques": [
+              "Surprising statistic",
+              "Problem statement",
+              "Bold or controversial claim",
+              "Direct question",
+              "Mind-blowing information",
+              "Dream scenario"
+            ],
+            "example": "The average YouTube video loses 45% of viewers in the first 30 seconds.",
+            "llm_instruction": "Start with the most compelling fact, statistic, or statement about the topic. Make it impossible to ignore. Be specific and concrete."
+          },
+          {
+            "step": 2,
+            "name": "Pattern Interrupt",
+            "duration": "1-5 seconds / 1 sentence",
+            "purpose": "Create tension by subverting the expectation you just set",
+            "techniques": [
+              "Use contrasting transition words: 'but', 'however', 'yet', 'although', 'therefore'",
+              "Introduce unexpected twist",
+              "Challenge the assumption you just established"
+            ],
+            "example": "But here's what everyone misses...",
+            "llm_instruction": "After establishing context, immediately contradict or subvert it with a contrasting statement. Use 'but', 'however', or 'yet' to signal the shift. Keep this brief - one sentence maximum."
+          },
+          {
+            "step": 3,
+            "name": "Twist + Value",
+            "duration": "2-3 sentences",
+            "purpose": "Challenge expectations AND promise specific value",
+            "components": {
+              "twist": {
+                "description": "Challenge conventional wisdom or reveal unexpected information",
+                "techniques": [
+                  "Challenge conventional wisdom",
+                  "Reveal unexpected information",
+                  "Introduce counterintuitive solution",
+                  "Pivot to different aspect of topic",
+                  "Raise stakes dramatically"
+                ]
+              },
+              "value": {
+                "description": "Clearly state what the audience will gain",
+                "techniques": [
+                  "Specific outcomes",
+                  "Time or effort savings",
+                  "Valuable insights",
+                  "Resource reveals",
+                  "Solution to stated problem"
+                ]
+              }
+            },
+            "example": "It's not about better content; it's about better hooks. I've developed a five-step formula that increased my retention from 55% to 79%.",
+            "llm_instruction": "First, state the contrarian or unexpected truth (the twist). Then immediately follow with the specific benefit or value the reader will receive (quantified when possible). These two elements must work together as a one-two punch."
+          },
+          {
+            "step": 4,
+            "name": "Credibility",
+            "duration": "1-2 sentences",
+            "purpose": "Establish why the audience should trust you",
+            "techniques": [
+              "Direct experience with results",
+              "Research or statistical backing",
+              "Borrowed credibility from experts or authorities",
+              "Track record or achievements",
+              "Extensive testing or analysis"
+            ],
+            "example": "I've gone from videos that get 200 views to ones that reach escape velocity using these exact techniques.",
+            "llm_instruction": "Briefly establish authority. Use specific numbers, timeframes, or results. Mention expert sources if applicable. Keep this concise - one to two sentences maximum."
+          },
+          {
+            "step": 5,
+            "name": "Compression",
+            "duration": "Applied to entire hook",
+            "purpose": "Deliver maximum impact in minimum time",
+            "techniques": [
+              "Eliminate all unnecessary words",
+              "Use short, punchy sentences",
+              "Create momentum through brevity",
+              "Remove filler words completely",
+              "Aim for 6th grade reading level"
+            ],
+            "example_comparison": {
+              "wordy": "If you've been trying to grow your YouTube channel for a while now but haven't been seeing the kind of results you're hoping for, you're definitely not alone. This is something that a lot of content creators struggle with.",
+              "compressed": "Your YouTube channel isn't growing fast enough. You're not alone. Most creators struggle with this too."
+            },
+            "llm_instruction": "After writing the hook, compress it. Remove every word that doesn't add essential meaning. Use active voice. Break long sentences into short ones. Each sentence should advance the hook forward."
+          }
+        ]
+      },
+      "three_step_hook_short_form": {
+        "use_case": "Short-form content, social media, emails, brief communications",
+        "steps": [
+          {
+            "step": 1,
+            "name": "Context Lean-In",
+            "duration": "1-2 sentences",
+            "purpose": "Provide immediate topic clarity and get audience leaning in",
+            "techniques": [
+              "Establish common ground",
+              "Reference a benefit or pain point",
+              "Use metaphors for complex ideas",
+              "Share mind-blowing information"
+            ],
+            "example": "The tech in the Vegas sphere is insane. Biggest screen ever built, 20 times bigger than an IMAX.",
+            "llm_instruction": "State the topic clearly and immediately. Make it personally relevant to the reader by connecting to their interests, problems, or aspirations. Be concrete and specific."
+          },
+          {
+            "step": 2,
+            "name": "Scroll-Stop Interjection",
+            "duration": "1 sentence",
+            "purpose": "Act as a stun gun to halt attention and create tension",
+            "techniques": [
+              "Use contrasting words: 'but', 'however', 'yet', 'although', 'therefore', 'on the other hand'",
+              "Set up for the payoff",
+              "Create cognitive dissonance"
+            ],
+            "example": "But get this: the screen is actually the least impressive part of the whole thing.",
+            "llm_instruction": "Immediately after context, introduce a contradiction or surprise using 'but' or 'however'. This should stun the reader and make them question what they just read. Keep to one sentence."
+          },
+          {
+            "step": 3,
+            "name": "Contrarian Snapback",
+            "duration": "1 sentence",
+            "purpose": "Deliver the unexpected payoff that shifts direction",
+            "techniques": [
+              "Go opposite direction of initial lean",
+              "Stay on topic but change the angle",
+              "Maximize shock value",
+              "The bigger the contrast, the better"
+            ],
+            "example": "Because the most impressive part is the audio. This is going to blow your mind.",
+            "llm_instruction": "Deliver the unexpected truth or perspective that contradicts what the reader initially thought. Make the shift dramatic but stay relevant to the topic. This is the payoff for their attention."
+          }
+        ]
+      }
+    },
+    "psychological_principles": {
+      "curiosity_gap": {
+        "description": "Human brains hate unresolved questions and seek closure",
+        "application": [
+          "Create knowledge gaps that demand to be filled",
+          "Build curiosity loops: question → partial answer → new question",
+          "Leave strategic information gaps",
+          "Promise resolution later in content"
+        ],
+        "llm_instruction": "Introduce a question or mystery in the hook that can only be answered by consuming the full content. Make the gap specific enough to be compelling but not so vague as to be irrelevant."
+      },
+      "pattern_interrupts": {
+        "description": "Unexpected statements jolt attention and re-engage focus",
+        "application": [
+          "Break established patterns mid-hook",
+          "Use good news/bad news structure",
+          "Contradict common assumptions",
+          "Introduce surprise elements"
+        ],
+        "llm_instruction": "After establishing an expectation, immediately subvert it. Use transition words like 'but' to signal the shift. The contradiction should be surprising but still logically connected to the topic."
+      },
+      "speed_to_value": {
+        "description": "Audiences judge value within seconds and make snap decisions",
+        "application": [
+          "Deliver value as fast as possible",
+          "Frontload best material",
+          "Think of it as a timer counting down",
+          "Every second without value loses audience"
+        ],
+        "llm_instruction": "Get to the point immediately. The first sentence should contain valuable or compelling information. Do not delay with preamble, context-setting, or throat-clearing. Assume you have 4 seconds before the reader leaves."
+      },
+      "movie_trailer_effect": {
+        "description": "Show enough to intrigue without revealing everything",
+        "application": [
+          "Don't give away the full story",
+          "Create FOMO (fear of missing out)",
+          "Promise valuable information",
+          "Make audience feel they'll miss something important"
+        ],
+        "llm_instruction": "Reveal just enough to make the content irresistible but not so much that there's no reason to continue. Think: 'Here's what's possible' not 'Here's how to do it' in the hook."
+      }
+    },
+    "four_critical_mistakes": {
+      "mistake_1_delay": {
+        "problem": "Topic introduced too late, context delayed",
+        "symptoms": [
+          "Vague opening statements",
+          "Unnecessary preamble",
+          "Fluff before substance",
+          "Topic unclear in first 1-2 seconds"
+        ],
+        "bad_example": "Guys, this is one of the craziest things I've ever seen. And when you see it, you're never going to believe it.",
+        "good_example": "Here are three simple ways to improve your gut health.",
+        "fix_instruction": "Introduce the specific topic in the very first sentence. Cut everything before the topic introduction. No warm-up, no preamble. First sentence = topic clarity.",
+        "llm_instruction": "Immediately state what the content is about in the first sentence. Eliminate all introductory phrases like 'I want to talk about', 'Today we're discussing', 'Let me tell you about'. Just state the topic directly."
+      },
+      "mistake_2_confusion": {
+        "problem": "Unclear words or complex phrasing causing comprehension loss",
+        "symptoms": [
+          "Complex sentence structures",
+          "Jargon without explanation",
+          "Passive voice",
+          "Multiple possible interpretations",
+          "Above 6th grade reading level"
+        ],
+        "bad_example": "The online money they made is most difficult to earn if you don't develop a journaling practice like they did.",
+        "good_example": "Their secret for earning money online was their insane journaling practice.",
+        "fix_techniques": [
+          "Write at 6th grade reading level",
+          "Use fewer, simpler words",
+          "Employ active voice not passive",
+          "Ensure only one possible interpretation",
+          "Short sentences over long ones"
+        ],
+        "clarity_test": "Ask: Can this be misunderstood? Is there more than one way to interpret this? If yes, rewrite.",
+        "llm_instruction": "Use simple, direct language. Prefer active voice ('The dog jumped' not 'The jump was made by the dog'). If a sentence can be misunderstood, rewrite it. Use concrete words over abstract ones. Maximum sentence length: 20 words."
+      },
+      "mistake_3_irrelevance": {
+        "problem": "Audience unsure if content applies to them personally",
+        "symptoms": [
+          "Using 'I/me' instead of 'you/your'",
+          "No clear pain point addressed",
+          "Vague benefits",
+          "Generic value propositions"
+        ],
+        "fix_strategy_1": {
+          "name": "Use 'You/Your' Language",
+          "bad_example": "I've struggled with skin problems my whole life.",
+          "good_example": "If you've struggled with skin problems your whole life...",
+          "llm_instruction": "Replace first-person pronouns (I, me, my) with second-person (you, your). Frame everything from the reader's perspective, not the writer's experience."
+        },
+        "fix_strategy_2": {
+          "name": "Frame Around Pain Points",
+          "description": "Agitate existing problems and promise solutions",
+          "bad_example": "These are three skincare trends.",
+          "good_example": "If you struggle with acne, try these three things.",
+          "spectrum": "Nice-to-have → Need-to-have",
+          "llm_instruction": "Identify a specific pain point the target audience experiences. State that pain point explicitly in the hook. Then promise a solution to that specific pain. Make it about solving their problem, not providing interesting information."
+        }
+      },
+      "mistake_4_disinterest": {
+        "problem": "Hook doesn't generate enough curiosity despite clarity",
+        "symptoms": [
+          "No contrast or surprise",
+          "Expected or obvious information",
+          "Lacks compelling angle",
+          "No reason to keep reading"
+        ],
+        "fix_create_contrast": {
+          "description": "Show the distance between current belief (A) and your alternative (B)",
+          "contrast_types": {
+            "stated_contrast": {
+              "description": "Explicitly mention both A and B",
+              "formula": "Most people do A, but I have B that does it [faster/better/cheaper]",
+              "example": "Most people solve acne with Accutane, but I have an herbal remedy that does it 3x faster.",
+              "llm_instruction": "State the common approach first, then use 'but' or 'however' to introduce your alternative approach. Quantify the difference when possible (3x faster, 50% cheaper, etc.)."
+            },
+            "implied_contrast": {
+              "description": "State only your alternative (B), assuming audience knows baseline (A)",
+              "formula": "For [problem], this [solution] is [X times] more effective",
+              "example": "If you want to solve your acne, this herbal supplement is 8x more effective.",
+              "llm_instruction": "State your solution with a quantified improvement over unstated alternatives. Only use this when the baseline solution is obvious to your audience."
+            }
+          },
+          "contrast_formula": {
+            "A": "Current common belief or approach",
+            "B": "Your alternative (must be faster, better, or cheaper)",
+            "strength": "The greater the distance between A and B, the stronger the curiosity"
+          }
+        },
+        "llm_instruction": "Create a contrast between what the audience currently believes or does (A) and what you're proposing (B). Make B significantly better in a measurable way. Use either stated contrast (explicit A vs B) or implied contrast (only state B if A is obvious)."
+      }
+    },
+    "common_hook_patterns": {
+      "problem_solution_hook": {
+        "structure": "[Pain point] + [Unexpected solution approach] + [Credibility] + [Specific outcome]",
+        "example": "Your gut health is ruining your sleep. Most people try probiotics, but fermented foods work 3x faster. I tested this for 90 days and now sleep 2 hours longer.",
+        "llm_instruction": "Start with a problem the reader has. Introduce an unexpected or contrarian solution. Briefly establish why you know this works. State the specific result they can expect."
+      },
+      "challenge_based_hook": {
+        "structure": "[Impossible scenario] + [Personal stakes] + [Why it matters]",
+        "example": "I joined a professional powerlifting competition with only 100 days to prepare. I've never powerlifted before and don't know what it is. Here's what happened.",
+        "llm_instruction": "Present a challenging or unlikely scenario. Establish what's at risk or why it's difficult. Create curiosity about the outcome."
+      },
+      "myth_busting_hook": {
+        "structure": "[Common belief] + [Pattern interrupt] + [Contrarian truth] + [Proof]",
+        "example": "Everyone says you need 10,000 hours to master a skill. But Malcolm Gladwell himself says that's wrong. The real number depends on one factor most people ignore.",
+        "llm_instruction": "State a widely-held belief. Immediately contradict it. Tease the actual truth. Hint at evidence or proof."
+      },
+      "statistical_hook": {
+        "structure": "[Shocking statistic] + [Why it matters to reader] + [Your unique solution]",
+        "example": "45% of viewers leave in the first 30 seconds. If that's happening to your videos, you're losing thousands of potential subscribers. This five-step formula fixes it.",
+        "llm_instruction": "Lead with a surprising or concerning statistic. Connect it directly to the reader's situation. Promise a specific solution."
+      },
+      "educational_hook": {
+        "structure": "[Specific benefit] + [Clear method] + [Time/effort savings]",
+        "example": "Want to double your reading speed? This one technique takes 15 minutes to learn and works immediately.",
+        "llm_instruction": "State the benefit upfront. Mention the method or approach. Quantify how quick or easy it is."
+      }
+    },
+    "advanced_techniques": {
+      "building_common_ground": {
+        "technique_1": {
+          "name": "Lead with benefits or pain points",
+          "description": "Start with problems or desires the audience already has",
+          "example": "If you want better sleep, you need to be taking magnesium.",
+          "llm_instruction": "Identify the core benefit or pain point your target audience cares about. Lead with that, not with the solution or topic itself."
+        },
+        "technique_2": {
+          "name": "Cult hopping",
+          "description": "Reference known brands, celebrities, or cultural moments as metaphors",
+          "purpose": "Create subconscious comfort through familiar references",
+          "example": "How Taylor Swift's financial advisor would plan her estate around her recent earnings...",
+          "llm_instruction": "Identify a celebrity, brand, or cultural reference your audience knows. Use it as a metaphor or example to make your complex topic more relatable. Don't make the entire content about the reference, just use it for familiarity."
+        },
+        "technique_3": {
+          "name": "Wrap unknown in known",
+          "description": "Frame new or complex ideas using familiar concepts",
+          "example": "Think of your sales funnel like a restaurant: the menu is your offer, the host is your landing page, and the waiter is your email sequence.",
+          "llm_instruction": "When explaining something unfamiliar, compare it to something the audience already understands well. Use 'like' or 'think of it as' to bridge the gap."
+        }
+      },
+      "compression_tactics": {
+        "technique_1": {
+          "name": "Staccato sentences",
+          "description": "Use short, punchy sentences especially at the beginning",
+          "why": "Forces maximum clarity and increases value density per word",
+          "example": "Your channel isn't growing. You're not alone. Most creators struggle. The problem? Your hooks.",
+          "llm_instruction": "Break long sentences into short ones. Aim for 5-12 words per sentence in the hook. Each sentence should be a complete thought. Short sentences create urgency and momentum."
+        },
+        "technique_2": {
+          "name": "Frontload value",
+          "description": "Put your best material first, not last",
+          "why": "Anything after they click away might as well be a black screen",
+          "llm_instruction": "Identify the single most valuable or surprising piece of information. Put it in the first two sentences. Don't save the best for last."
+        },
+        "technique_3": {
+          "name": "Eliminate filler words",
+          "description": "Remove words that don't add essential meaning",
+          "filler_words_to_remove": [
+            "really",
+            "very",
+            "just",
+            "actually",
+            "basically",
+            "literally",
+            "definitely",
+            "probably",
+            "maybe",
+            "kind of",
+            "sort of",
+            "I think",
+            "In my opinion"
+          ],
+          "llm_instruction": "After writing the hook, remove every instance of filler words. Then read it again and remove any word that doesn't change the core meaning. Compress without losing clarity."
+        }
+      },
+      "signaling_understanding": {
+        "description": "Show the audience you know exactly why they're reading",
+        "techniques": [
+          "Validate their click or interest immediately",
+          "Address their specific problem by name",
+          "Acknowledge the pain point explicitly",
+          "Promise relevant solution upfront"
+        ],
+        "example": "You clicked because your videos aren't getting views. I know that feeling. Most creators face this. It's not your fault - you were never taught the hook formula.",
+        "llm_instruction": "In the first 1-2 sentences, demonstrate that you understand the specific problem or interest that brought the reader here. Name it explicitly. This builds trust and relevance immediately."
+      }
+    },
+    "quality_checklist": {
+      "essential_elements": [
+        {
+          "element": "Topic clarity within 4-8 seconds/first sentence",
+          "test": "Can a reader state what this content is about after reading only the first sentence?",
+          "llm_instruction": "Read only the first sentence. Is the topic crystal clear? If not, rewrite to make it explicit."
+        },
+        {
+          "element": "Zero possibility of misunderstanding",
+          "test": "Is there only one way to interpret these sentences?",
+          "llm_instruction": "Check if the hook can be misunderstood in any way. If yes, simplify and clarify."
+        },
+        {
+          "element": "Uses 'you/your' language (not 'I/me')",
+          "test": "Is the hook framed from the reader's perspective?",
+          "llm_instruction": "Count pronouns. There should be more 'you/your' than 'I/me/my'. Reframe if needed."
+        },
+        {
+          "element": "Creates curiosity gap or contrast",
+          "test": "Does the hook make the reader want to know more?",
+          "llm_instruction": "Identify the curiosity gap or A vs B contrast. If there isn't one, add it."
+        },
+        {
+          "element": "Eliminates all delay and filler",
+          "test": "Does the first word contribute essential meaning?",
+          "llm_instruction": "Remove the first sentence. Does the hook still work? If yes, delete that sentence. Repeat until you can't remove anything."
+        },
+        {
+          "element": "Includes credibility element",
+          "test": "Why should the reader trust this information?",
+          "llm_instruction": "Add one brief credibility statement: results you've achieved, research you've done, or experts you're citing."
+        },
+        {
+          "element": "Compressed to essential words only",
+          "test": "Can any word be removed without losing meaning?",
+          "llm_instruction": "Remove every adjective and adverb. Add back only those that add essential meaning. Use active voice."
+        },
+        {
+          "element": "Agitates a pain point",
+          "test": "Does the hook address a problem the reader has?",
+          "llm_instruction": "Identify the specific pain point. State it explicitly in the hook. Make the reader feel the problem before offering the solution."
+        },
+        {
+          "element": "Promises specific value",
+          "test": "What exactly will the reader gain? Is it quantified?",
+          "llm_instruction": "State the value explicitly. Use numbers when possible (3 ways, 50% improvement, 10 minutes, etc.)."
+        }
+      ]
+    },
+    "llm_specific_instructions": {
+      "hook_generation_process": [
+        {
+          "step": 1,
+          "action": "Identify the core topic",
+          "instruction": "What is this content fundamentally about? State it in 3-5 words."
+        },
+        {
+          "step": 2,
+          "action": "Identify target audience pain point",
+          "instruction": "What specific problem does the target audience have that this content solves?"
+        },
+        {
+          "step": 3,
+          "action": "Choose hook formula",
+          "instruction": "Based on content length and type, select either the five-step or three-step formula."
+        },
+        {
+          "step": 4,
+          "action": "Draft hook using selected formula",
+          "instruction": "Follow the formula steps precisely. Start with topic clarity, add pattern interrupt, create contrast."
+        },
+        {
+          "step": 5,
+          "action": "Check against four critical mistakes",
+          "instruction": "Verify no delay, no confusion, relevant to reader, creates interest. Fix any violations."
+        },
+        {
+          "step": 6,
+          "action": "Compress ruthlessly",
+          "instruction": "Remove every unnecessary word. Shorten every sentence possible. Aim for 6th grade reading level."
+        },
+        {
+          "step": 7,
+          "action": "Run quality checklist",
+          "instruction": "Verify all 9 essential elements are present. Fix any missing elements."
+        },
+        {
+          "step": 8,
+          "action": "Apply final polish",
+          "instruction": "Ensure first sentence contains topic clarity. Use 'you/your' pronouns. Create urgency or curiosity in final sentence of hook."
+        }
+      ],
+      "decision_tree": {
+        "content_length": {
+          "short_form": "Use three-step hook formula (Context Lean-In, Scroll-Stop Interjection, Contrarian Snapback)",
+          "long_form": "Use five-step hook formula (Interest Spark, Pattern Interrupt, Twist + Value, Credibility, Compression)"
+        },
+        "content_type": {
+          "educational": "Use Problem-Solution or Educational hook pattern. Focus on pain point + solution + time savings",
+          "entertainment": "Use Challenge-Based hook pattern. Focus on impossible scenario + stakes + outcome curiosity",
+          "myth_busting": "Use Myth-Busting hook pattern. State common belief + contradict + tease truth",
+          "data_driven": "Use Statistical hook pattern. Lead with shocking stat + relevance + solution"
+        },
+        "audience_awareness": {
+          "unaware": "Use more context, explain the problem, establish why it matters before solution",
+          "problem_aware": "Lead with problem agitation, then introduce solution quickly",
+          "solution_aware": "Create contrast with existing solutions, show why yours is better/faster/cheaper"
+        }
+      },
+      "output_format": {
+        "when_generating_hooks": [
+          "Provide the hook text first (the actual sentences to use)",
+          "Then provide a breakdown showing which formula/pattern was used",
+          "Explain which psychological principles are being leveraged",
+          "Note any specific pain points being addressed"
+        ],
+        "example_output_structure": {
+          "hook_text": "Your YouTube videos lose 45% of viewers in 30 seconds. Most creators think better content fixes this. But it's not about better content—it's about better hooks. This five-step formula increased my retention from 55% to 79%.",
+          "formula_used": "Five-Step Hook (Interest Spark → Pattern Interrupt → Twist + Value → Credibility)",
+          "psychological_principles": ["Curiosity gap", "Pattern interrupt", "Contrast creation"],
+          "pain_point_addressed": "Low viewer retention / videos not performing",
+          "target_audience": "Content creators struggling with video performance"
+        }
+      },
+      "optimization_guidelines": {
+        "reading_level": "6th grade maximum",
+        "sentence_length": "5-20 words per sentence in hook",
+        "hook_total_length": {
+          "short_form": "3-4 sentences maximum (30-50 words)",
+          "long_form": "4-6 sentences maximum (50-80 words)"
+        },
+        "pronoun_ratio": "Use 'you/your' at least 2x more than 'I/me/my'",
+        "specificity": "Include at least one specific number, timeframe, or quantified result",
+        "clarity_test": "If sentence can be misunderstood, rewrite until only one interpretation is possible"
+      },
+      "common_llm_pitfalls_to_avoid": [
+        {
+          "pitfall": "Being too formal or academic",
+          "fix": "Write conversationally. Use contractions. Sound like a human talking."
+        },
+        {
+          "pitfall": "Burying the topic in the second or third sentence",
+          "fix": "First sentence must contain the core topic. No preamble."
+        },
+        {
+          "pitfall": "Using vague value propositions",
+          "fix": "Quantify everything possible. '3 ways' not 'some ways'. '50% faster' not 'much faster'."
+        },
+        {
+          "pitfall": "Making hooks too long",
+          "fix": "Compress ruthlessly. If a word doesn't add essential meaning, delete it."
+        },
+        {
+          "pitfall": "Focusing on features instead of benefits",
+          "fix": "Lead with what the reader gets (benefit) not what the content contains (feature)."
+        },
+        {
+          "pitfall": "Failing to create contrast",
+          "fix": "Always include an A vs B comparison: common approach vs your approach."
+        },
+        {
+          "pitfall": "Using passive voice",
+          "fix": "Convert all passive constructions to active. 'I discovered' not 'It was discovered'."
+        }
+      ]
+    },
+    "testing_and_iteration": {
+      "the_elevator_pitch_test": {
+        "scenario": "Imagine you have 30 seconds to explain this content to someone important",
+        "question": "Would you start with this hook or would you say something different?",
+        "llm_instruction": "Read the hook as if you only have 30 seconds total. Does it get to the point fast enough? If you'd say something different in person, use that instead."
+      },
+      "the_misunderstanding_test": {
+        "question": "Can this hook be interpreted in more than one way?",
+        "llm_instruction": "Read each sentence and ask: could someone misunderstand this? If yes, rewrite for clarity."
+      },
+      "the_relevance_test": {
+        "question": "Does the target reader immediately see themselves in this hook?",
+        "llm_instruction": "Check pronouns ('you' vs 'I'), pain points (specific vs vague), and framing (for them vs about you)."
+      },
+      "the_curiosity_test": {
+        "question": "After reading the hook, does the reader NEED to know more?",
+        "llm_instruction": "Identify the curiosity gap or contrast. If it's weak or missing, add a stronger A vs B comparison or unanswered question."
+      }
+    },
+    "examples_by_niche": {
+      "business_productivity": {
+        "bad_hook": "I want to share some thoughts on productivity that I've been thinking about lately.",
+        "good_hook": "You're working 60-hour weeks but getting less done than ever. Most productivity advice makes this worse. This counterintuitive approach helped me cut my hours in half while doubling output.",
+        "analysis": "Good hook uses: pain point (60-hour weeks, less done), contrast (most advice makes it worse), specific value (half hours, double output), 'you' language"
+      },
+      "health_fitness": {
+        "bad_hook": "Today I'm going to talk about some things that helped me lose weight.",
+        "good_hook": "You've tried every diet and the weight keeps coming back. The problem isn't willpower—it's insulin resistance. This simple test tells you if that's sabotaging your progress.",
+        "analysis": "Good hook uses: common problem (weight returns), myth-busting (not willpower), specific pain point (insulin resistance), actionable promise (simple test)"
+      },
+      "personal_finance": {
+        "bad_hook": "Let me tell you about an interesting investment strategy I learned.",
+        "good_hook": "Your 401(k) is costing you $430,000 in retirement. Financial advisors don't mention this fee structure because they profit from it. Here's how to spot it.",
+        "analysis": "Good hook uses: shocking statistic ($430k), creates enemy (advisors profit), implies conspiracy (don't mention), promises solution (how to spot)"
+      },
+      "content_creation": {
+        "bad_hook": "I've been making videos for a while and want to share what I've learned about hooks.",
+        "good_hook": "Your videos lose 45% of viewers in 30 seconds. Better content won't fix this—better hooks will. This five-step formula increased my retention 24% overnight.",
+        "analysis": "Good hook uses: specific problem (45% loss, 30 seconds), contrarian take (not content, hooks), quantified results (24% increase, overnight)"
+      },
+      "education_tutorials": {
+        "bad_hook": "In this tutorial, I'll show you how to use Photoshop for photo editing.",
+        "good_hook": "You're using Photoshop the slow way. Professional editors use 12 keyboard shortcuts that cut editing time by 70%. Here are the only three you actually need.",
+        "analysis": "Good hook uses: pain point (slow way), insider knowledge (professionals use), quantified benefit (70% faster), simplification (only 3 needed)"
+      }
+    },
+    "final_llm_directive": "When generating hooks, prioritize clarity and speed to value above all else. The reader should know what the content is about and why it matters to them within the first sentence. Create curiosity through contrast, not vagueness. Always compress to the shortest version that maintains full meaning. Test against the four critical mistakes (delay, confusion, irrelevance, disinterest) before outputting the final hook."
+  }
+}
