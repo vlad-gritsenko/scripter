@@ -3,7 +3,9 @@
     "allow": [
       "Bash(start \"\" \"D:\\\\Scripter\\\\index.html\")",
       "Bash(node --check:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(start:*)"
     ]
   }
 }

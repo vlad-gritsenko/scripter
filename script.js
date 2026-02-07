@@ -742,25 +742,35 @@ function randomizeParameters() {
     document.getElementById('constraintSelect').value = state.parameters.constraint;
     document.getElementById('personaSelect').value = state.parameters.persona;
 
+    // Randomize temperature and penalty values
+    const randRange = (min, max, step) => {
+        const steps = Math.round((max - min) / step);
+        return parseFloat((min + Math.floor(Math.random() * (steps + 1)) * step).toFixed(2));
+    };
+
+    state.settings.outlineTemp = randRange(0.6, 1.2, 0.05);
+    state.settings.scriptTemp = randRange(0.5, 1.0, 0.05);
+    state.settings.hookTemp = randRange(0.7, 1.1, 0.05);
+    state.settings.frequencyPenalty = randRange(0, 0.8, 0.1);
+    state.settings.presencePenalty = randRange(0, 0.6, 0.1);
+
+    document.getElementById('outlineTempSlider').value = state.settings.outlineTemp;
+    document.getElementById('outlineTempValue').textContent = state.settings.outlineTemp;
+    document.getElementById('scriptTempSlider').value = state.settings.scriptTemp;
+    document.getElementById('scriptTempValue').textContent = state.settings.scriptTemp;
+    document.getElementById('hookTempSlider').value = state.settings.hookTemp;
+    document.getElementById('hookTempValue').textContent = state.settings.hookTemp;
+    document.getElementById('frequencyPenaltySlider').value = state.settings.frequencyPenalty;
+    document.getElementById('frequencyPenaltyValue').textContent = state.settings.frequencyPenalty;
+    document.getElementById('presencePenaltySlider').value = state.settings.presencePenalty;
+    document.getElementById('presencePenaltyValue').textContent = state.settings.presencePenalty;
+
+    localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
     saveParameters();
 }
 
 function saveParameters() {
     localStorage.setItem('scriptBuilder_parameters', JSON.stringify(state.parameters));
-}
-
-function saveParametersWithFeedback() {
-    saveParameters();
-    const btn = document.getElementById('saveParamsBtn');
-    const originalHTML = btn.innerHTML;
-    btn.innerHTML = '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Saved!';
-    btn.classList.remove('text-green-400');
-    btn.classList.add('text-emerald-300');
-    setTimeout(() => {
-        btn.innerHTML = originalHTML;
-        btn.classList.remove('text-emerald-300');
-        btn.classList.add('text-green-400');
-    }, 2000);
 }
 
 function saveSettings() {
@@ -808,12 +818,6 @@ function bindEventListeners() {
     // Randomize button
     document.getElementById('randomizeParamsBtn').addEventListener('click', () => {
         randomizeParameters();
-        saveTemplateData(state.currentTemplate);
-    });
-
-    // Save parameters button
-    document.getElementById('saveParamsBtn').addEventListener('click', () => {
-        saveParametersWithFeedback();
         saveTemplateData(state.currentTemplate);
     });
 
