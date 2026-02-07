@@ -253,7 +253,6 @@ const state = {
     },
     generationHistory: [],
     isGenerating: false,
-    currentTab: 'final',
     theme: 'dark'
 };
 
@@ -503,27 +502,8 @@ function toggleSection(sectionId) {
 // ============================================
 
 function downloadCurrentContent() {
-    let text = '';
-    let filename = 'script';
-
-    switch (state.currentTab) {
-        case 'outline':
-            text = state.generated.outline;
-            filename = 'outline';
-            break;
-        case 'script':
-            text = state.generated.script;
-            filename = 'script';
-            break;
-        case 'hook':
-            text = state.generated.hook;
-            filename = 'hook';
-            break;
-        case 'final':
-            text = state.generated.final;
-            filename = 'final-script';
-            break;
-    }
+    const text = state.generated.final || '';
+    const filename = 'final-script';
 
     if (!text) {
         alert('No content to download.');
@@ -639,10 +619,6 @@ function loadSettings() {
     document.getElementById('scriptTempValue').textContent = state.settings.scriptTemp;
     document.getElementById('hookTempSlider').value = state.settings.hookTemp;
     document.getElementById('hookTempValue').textContent = state.settings.hookTemp;
-    document.getElementById('frequencyPenaltySlider').value = state.settings.frequencyPenalty;
-    document.getElementById('frequencyPenaltyValue').textContent = state.settings.frequencyPenalty;
-    document.getElementById('presencePenaltySlider').value = state.settings.presencePenalty;
-    document.getElementById('presencePenaltyValue').textContent = state.settings.presencePenalty;
 
     // Load saved parameters
     const savedParams = localStorage.getItem('scriptBuilder_parameters');
@@ -750,8 +726,6 @@ function randomizeParameters() {
     state.settings.outlineTemp = randRange(0.6, 1.2, 0.05);
     state.settings.scriptTemp = randRange(0.5, 1.0, 0.05);
     state.settings.hookTemp = randRange(0.7, 1.1, 0.05);
-    state.settings.frequencyPenalty = randRange(0, 0.8, 0.1);
-    state.settings.presencePenalty = randRange(0, 0.6, 0.1);
 
     document.getElementById('outlineTempSlider').value = state.settings.outlineTemp;
     document.getElementById('outlineTempValue').textContent = state.settings.outlineTemp;
@@ -759,10 +733,6 @@ function randomizeParameters() {
     document.getElementById('scriptTempValue').textContent = state.settings.scriptTemp;
     document.getElementById('hookTempSlider').value = state.settings.hookTemp;
     document.getElementById('hookTempValue').textContent = state.settings.hookTemp;
-    document.getElementById('frequencyPenaltySlider').value = state.settings.frequencyPenalty;
-    document.getElementById('frequencyPenaltyValue').textContent = state.settings.frequencyPenalty;
-    document.getElementById('presencePenaltySlider').value = state.settings.presencePenalty;
-    document.getElementById('presencePenaltyValue').textContent = state.settings.presencePenalty;
 
     localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
     saveParameters();
@@ -780,8 +750,6 @@ function saveSettings() {
     state.settings.outlineTemp = parseFloat(document.getElementById('outlineTempSlider').value);
     state.settings.scriptTemp = parseFloat(document.getElementById('scriptTempSlider').value);
     state.settings.hookTemp = parseFloat(document.getElementById('hookTempSlider').value);
-    state.settings.frequencyPenalty = parseFloat(document.getElementById('frequencyPenaltySlider').value);
-    state.settings.presencePenalty = parseFloat(document.getElementById('presencePenaltySlider').value);
 
     localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
 }
@@ -868,22 +836,6 @@ function bindEventListeners() {
         state.settings.hookTemp = parseFloat(e.target.value);
         localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
     });
-    document.getElementById('frequencyPenaltySlider').addEventListener('input', (e) => {
-        document.getElementById('frequencyPenaltyValue').textContent = e.target.value;
-        state.settings.frequencyPenalty = parseFloat(e.target.value);
-        localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
-    });
-    document.getElementById('presencePenaltySlider').addEventListener('input', (e) => {
-        document.getElementById('presencePenaltyValue').textContent = e.target.value;
-        state.settings.presencePenalty = parseFloat(e.target.value);
-        localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
-    });
-
-    // Tab switching
-    document.getElementById('tabOutline').addEventListener('click', () => switchTab('outline'));
-    document.getElementById('tabScript').addEventListener('click', () => switchTab('script'));
-    document.getElementById('tabHook').addEventListener('click', () => switchTab('hook'));
-    document.getElementById('tabFinal').addEventListener('click', () => switchTab('final'));
 
     // Copy button
     document.getElementById('copyBtn').addEventListener('click', copyCurrentContent);
@@ -894,53 +846,41 @@ function bindEventListeners() {
 
 
 // ============================================
-// 4. TAB MANAGEMENT
+// 4. CONTENT DISPLAY MANAGEMENT
 // ============================================
 
-function switchTab(tab) {
-    state.currentTab = tab;
+function showContent(content, isOutline = false) {
+    document.getElementById('emptyState').classList.add('hidden');
+    document.getElementById('loadingSpinner').classList.add('hidden');
+    document.getElementById('generatedContent').classList.remove('hidden');
 
-    // Update tab buttons
-    const tabs = ['Outline', 'Script', 'Hook', 'Final'];
-    tabs.forEach(t => {
-        const btn = document.getElementById(`tab${t}`);
-        const isActive = t.toLowerCase() === tab;
-        btn.classList.toggle('text-indigo-400', isActive);
-        btn.classList.toggle('border-indigo-400', isActive);
-        btn.classList.toggle('text-gray-400', !isActive);
-        btn.classList.toggle('border-transparent', !isActive);
-    });
+    const contentEl = document.getElementById('contentText');
+    if (isOutline) {
+        contentEl.className = 'prose prose-invert max-w-none text-gray-300 leading-relaxed whitespace-pre-wrap';
+        contentEl.textContent = content;
+    } else {
+        contentEl.className = 'prose prose-invert max-w-none text-gray-200 leading-relaxed';
+        contentEl.innerHTML = formatScriptText(content);
+    }
 
-    // Show/hide content
-    document.getElementById('outlineContent').classList.toggle('hidden', tab !== 'outline');
-    document.getElementById('scriptContent').classList.toggle('hidden', tab !== 'script');
-    document.getElementById('hookContent').classList.toggle('hidden', tab !== 'hook');
-    document.getElementById('finalContent').classList.toggle('hidden', tab !== 'final');
-
-    // Update word count
     updateWordCount();
 }
 
+function showLoading(message) {
+    document.getElementById('emptyState').classList.add('hidden');
+    document.getElementById('generatedContent').classList.add('hidden');
+    document.getElementById('loadingSpinner').classList.remove('hidden');
+    document.getElementById('loadingText').textContent = message;
+}
+
 function updateWordCount() {
-    let text = '';
-    switch (state.currentTab) {
-        case 'outline': text = state.generated.outline; break;
-        case 'script': text = state.generated.script; break;
-        case 'hook': text = state.generated.hook; break;
-        case 'final': text = state.generated.final; break;
-    }
+    const text = state.generated.final || '';
     const wordCount = text.split(/\s+/).filter(w => w).length;
     document.getElementById('wordCount').textContent = `${wordCount} words`;
 }
 
 function copyCurrentContent() {
-    let text = '';
-    switch (state.currentTab) {
-        case 'outline': text = state.generated.outline; break;
-        case 'script': text = state.generated.script; break;
-        case 'hook': text = state.generated.hook; break;
-        case 'final': text = state.generated.final; break;
-    }
+    const text = state.generated.final || '';
 
     navigator.clipboard.writeText(text);
     const btn = document.getElementById('copyBtn');
@@ -968,12 +908,15 @@ function updateProgress(step, status) {
     // Update status text
     statusText.textContent = status;
 
-    // Update progress bar
-    const progress = (step / 3) * 100;
+    // Update progress bar (4 steps total)
+    const progress = (step / 4) * 100;
     progressBar.style.width = `${progress}%`;
 
+    // Icon map for each step
+    const stepIcons = ['📋', '📝', '🎣', '✨'];
+
     // Update step circles
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 4; i++) {
         const circle = document.getElementById(`step${i}Circle`);
         const icon = document.getElementById(`step${i}Icon`);
         const line = document.getElementById(`step${i}Line`);
@@ -996,21 +939,23 @@ function updateProgress(step, status) {
             // Pending
             circle.classList.remove('bg-blue-600', 'bg-green-600');
             circle.classList.add('bg-gray-700');
-            icon.innerHTML = i;
+            icon.innerHTML = `<span class="text-sm">${stepIcons[i - 1]}</span>`;
             icon.className = 'text-gray-400';
         }
     }
 }
 
 function resetProgress() {
-    for (let i = 1; i <= 3; i++) {
+    const stepIcons = ['📋', '📝', '🎣', '✨'];
+
+    for (let i = 1; i <= 4; i++) {
         const circle = document.getElementById(`step${i}Circle`);
         const icon = document.getElementById(`step${i}Icon`);
         const line = document.getElementById(`step${i}Line`);
 
         circle.classList.remove('bg-blue-600', 'bg-green-600');
         circle.classList.add('bg-gray-700');
-        icon.innerHTML = i;
+        icon.innerHTML = `<span class="text-sm">${stepIcons[i - 1]}</span>`;
         icon.className = 'text-gray-400';
         if (line) {
             line.classList.remove('bg-green-600');
@@ -1021,7 +966,7 @@ function resetProgress() {
 }
 
 function markAllComplete() {
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 4; i++) {
         const circle = document.getElementById(`step${i}Circle`);
         const icon = document.getElementById(`step${i}Icon`);
         const line = document.getElementById(`step${i}Line`);
@@ -1392,41 +1337,41 @@ async function generateScript() {
 
     // Update UI
     document.getElementById('generateBtn').disabled = true;
-    document.getElementById('emptyState').classList.add('hidden');
+    document.getElementById('actionBar').classList.add('hidden');
     showProgress(true);
     resetProgress();
 
     try {
         // STAGE 1: Generate Outline
         updateProgress(1, 'Creating script outline...');
-        switchTab('outline');
+        showLoading('Creating script outline...');
         const outlineMessages = buildOutlineMessages();
         console.log('[ScriptBuilder] Outline system message:', outlineMessages[0].content.slice(0, 200) + '...');
         console.log('[ScriptBuilder] Anti-repetition active:', outlineMessages[1].content.includes('AVOID THESE'));
         state.generated.outline = await callOpenRouter(outlineMessages, state.settings.outlineModel, { temperature: state.settings.outlineTemp });
-        document.getElementById('outlineText').textContent = state.generated.outline;
-        document.getElementById('outlineContent').classList.remove('hidden');
+        showContent(state.generated.outline, true);
 
         // STAGE 2: Generate Script
         updateProgress(2, 'Writing full script...');
-        switchTab('script');
+        showLoading('Writing full script...');
         const scriptMessages = buildScriptMessages(state.generated.outline);
         state.generated.script = await callOpenRouter(scriptMessages, state.settings.scriptModel, { temperature: state.settings.scriptTemp });
-        document.getElementById('scriptText').innerHTML = formatScriptText(state.generated.script);
-        document.getElementById('scriptContent').classList.remove('hidden');
+        showContent(state.generated.script);
 
         // STAGE 3: Generate Hook
         updateProgress(3, 'Crafting compelling hook...');
-        switchTab('hook');
+        showLoading('Crafting compelling hook...');
         const hookMessages = buildHookMessages(state.generated.script);
         state.generated.hook = await callOpenRouter(hookMessages, state.settings.hookModel, { temperature: state.settings.hookTemp });
-        document.getElementById('hookText').innerHTML = formatScriptText(state.generated.hook);
-        document.getElementById('hookContent').classList.remove('hidden');
+        showContent(state.generated.hook);
 
-        // Combine into final script
+        // STAGE 4: Combine into final script
+        updateProgress(4, 'Finalizing script...');
+        showLoading('Finalizing script...');
+        // Small delay to show the final step
+        await new Promise(resolve => setTimeout(resolve, 500));
         state.generated.final = state.generated.hook + '\n\n' + state.generated.script;
-        document.getElementById('finalText').innerHTML = formatScriptText(state.generated.final);
-        document.getElementById('finalContent').classList.remove('hidden');
+        showContent(state.generated.final);
 
         // Save to generation history
         saveGenerationHistory();
@@ -1435,14 +1380,16 @@ async function generateScript() {
         markAllComplete();
         document.getElementById('progressStatus').textContent = 'Script generation complete!';
 
-        // Show action bar and switch to final tab
+        // Show action bar
         document.getElementById('actionBar').classList.remove('hidden');
-        switchTab('final');
 
     } catch (error) {
         console.error('Generation error:', error);
         alert('Error: ' + error.message);
         document.getElementById('progressStatus').textContent = 'Generation failed: ' + error.message;
+        document.getElementById('emptyState').classList.remove('hidden');
+        document.getElementById('loadingSpinner').classList.add('hidden');
+        document.getElementById('generatedContent').classList.add('hidden');
     } finally {
         state.isGenerating = false;
         document.getElementById('generateBtn').disabled = false;

@@ -372,25 +372,6 @@
                     </div>
                 </div>
 
-                <!-- Sampling Penalties -->
-                <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
-                    <h3 class="text-sm font-semibold text-gray-300 mb-3">Sampling Penalties</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs text-gray-400 w-20 shrink-0">Frequency</span>
-                            <input type="range" id="frequencyPenaltySlider" min="0" max="2" step="0.1" value="0.3"
-                                class="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                            <span id="frequencyPenaltyValue" class="text-xs text-gray-300 w-8 text-right">0.3</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs text-gray-400 w-20 shrink-0">Presence</span>
-                            <input type="range" id="presencePenaltySlider" min="0" max="2" step="0.1" value="0.2"
-                                class="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                            <span id="presencePenaltyValue" class="text-xs text-gray-300 w-8 text-right">0.2</span>
-                        </div>
-                    </div>
-                </div>
-
               </div>
 
               <!-- Generate Button (sticky bottom) -->
@@ -407,7 +388,7 @@
             </div>
 
             <!-- Center/Right Panel: Output -->
-            <div class="lg:col-span-8 overflow-y-auto space-y-4 sidebar-scroll">
+            <div class="lg:col-span-8 space-y-4">
 
                 <!-- Progress Stepper -->
                 <div id="progressSection" class="bg-gray-900 border border-gray-800 rounded-xl p-5 hidden mb-4">
@@ -416,7 +397,7 @@
                         <div class="flex-1 flex flex-col items-center">
                             <div id="step1Circle"
                                 class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
-                                <span id="step1Icon" class="text-gray-400">1</span>
+                                <span id="step1Icon" class="text-gray-400 text-sm">📋</span>
                             </div>
                             <span class="text-xs text-gray-400">Outline</span>
                         </div>
@@ -425,7 +406,7 @@
                         <div class="flex-1 flex flex-col items-center">
                             <div id="step2Circle"
                                 class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
-                                <span id="step2Icon" class="text-gray-400">2</span>
+                                <span id="step2Icon" class="text-gray-400 text-sm">📝</span>
                             </div>
                             <span class="text-xs text-gray-400">Script</span>
                         </div>
@@ -434,9 +415,18 @@
                         <div class="flex-1 flex flex-col items-center">
                             <div id="step3Circle"
                                 class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
-                                <span id="step3Icon" class="text-gray-400">3</span>
+                                <span id="step3Icon" class="text-gray-400 text-sm">🎣</span>
                             </div>
                             <span class="text-xs text-gray-400">Hook</span>
+                        </div>
+                        <div id="step3Line" class="flex-1 h-1 bg-gray-700 mx-2 transition-all"></div>
+                        <!-- Step 4: Final Script -->
+                        <div class="flex-1 flex flex-col items-center">
+                            <div id="step4Circle"
+                                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
+                                <span id="step4Icon" class="text-gray-400 text-sm">✨</span>
+                            </div>
+                            <span class="text-xs text-gray-400">Final Script</span>
                         </div>
                     </div>
                     <!-- Progress Bar -->
@@ -448,32 +438,8 @@
                     <p id="progressStatus" class="text-sm text-gray-400 mt-3 text-center">Ready to generate...</p>
                 </div>
 
-                <!-- Output Tabs -->
+                <!-- Output Content -->
                 <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden !mt-0">
-                    <!-- Tabs -->
-                    <div class="flex border-b border-gray-800">
-                        <button id="tabOutline"
-                            class="flex-1 px-4 py-3 text-sm font-medium text-gray-400 hover:text-gray-200 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-                            Outline
-                        </button>
-                        <button id="tabScript"
-                            class="flex-1 px-4 py-3 text-sm font-medium text-gray-400 hover:text-gray-200 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                            Script
-                        </button>
-                        <button id="tabHook"
-                            class="flex-1 px-4 py-3 text-sm font-medium text-gray-400 hover:text-gray-200 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-                            Hook
-                        </button>
-                        <button id="tabFinal"
-                            class="flex-1 px-4 py-3 text-sm font-medium text-indigo-400 border-b-2 border-indigo-400 transition-colors flex items-center justify-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
-                            Final Script
-                        </button>
-                    </div>
-
                     <!-- Content -->
                     <div class="p-5 flex flex-col" style="max-height: calc(100vh - 250px);">
                         <!-- Scrollable Content Area -->
@@ -494,28 +460,15 @@
                                     "Generate Script"</p>
                             </div>
 
-                            <!-- Outline Content -->
-                            <div id="outlineContent" class="hidden">
-                                <div id="outlineText"
-                                    class="prose prose-invert max-w-none text-gray-300 leading-relaxed whitespace-pre-wrap">
-                                </div>
+                            <!-- Loading Spinner -->
+                            <div id="loadingSpinner" class="hidden text-center py-16">
+                                <div class="w-16 h-16 mx-auto mb-4 loading-spinner"></div>
+                                <p id="loadingText" class="text-sm text-gray-400">Processing...</p>
                             </div>
 
-                            <!-- Script Content -->
-                            <div id="scriptContent" class="hidden">
-                                <div id="scriptText" class="prose prose-invert max-w-none text-gray-200 leading-relaxed">
-                                </div>
-                            </div>
-
-                            <!-- Hook Content -->
-                            <div id="hookContent" class="hidden">
-                                <div id="hookText"
-                                    class="prose prose-invert max-w-none text-gray-200 leading-relaxed text-lg"></div>
-                            </div>
-
-                            <!-- Final Script Content -->
-                            <div id="finalContent" class="hidden">
-                                <div id="finalText" class="prose prose-invert max-w-none text-gray-200 leading-relaxed">
+                            <!-- Generated Content -->
+                            <div id="generatedContent" class="hidden">
+                                <div id="contentText" class="prose prose-invert max-w-none text-gray-200 leading-relaxed">
                                 </div>
                             </div>
                         </div>
