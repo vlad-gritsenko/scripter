@@ -141,24 +141,7 @@ const WRITER_PERSONAS = [
 ];
 
 // ============================================
-// 1.2 CONCEPTUAL LENSES
-// ============================================
-
-const CONCEPTUAL_LENSES = [
-    { id: 'economic', name: 'Economic Lens', description: 'View through incentives, trade-offs, scarcity, and opportunity costs. Frame decisions as markets, investments, and returns.' },
-    { id: 'forensic', name: 'Forensic Lens', description: 'Approach as an investigation. Follow evidence trails, question alibis, reconstruct timelines. Treat the topic as a crime scene of cause and effect.' },
-    { id: 'culinary', name: 'Culinary Lens', description: 'Frame through cooking metaphors — ingredients, recipes, heat, timing, seasoning. Ideas are dishes that need the right balance.' },
-    { id: 'architectural', name: 'Architectural Lens', description: 'See structure, foundations, load-bearing walls, and facades. Ideas are buildings — some well-constructed, some about to collapse.' },
-    { id: 'musical', name: 'Musical Lens', description: 'Frame through rhythm, harmony, dissonance, and crescendo. Ideas have tempo. Arguments have melody. Conflicts are clashing keys.' },
-    { id: 'ecological', name: 'Ecological Lens', description: 'View as an ecosystem — predators, symbiosis, invasive species, carrying capacity. Everything is interconnected and competing for resources.' },
-    { id: 'medical', name: 'Medical Lens', description: 'Diagnose the topic like a doctor. Identify symptoms, root causes, and treatments. Some ideas are healthy, others are chronic conditions.' },
-    { id: 'cartographic', name: 'Cartographic Lens', description: 'Map the territory. Identify borders, uncharted regions, well-traveled paths, and dead ends. The topic is a landscape to navigate.' },
-    { id: 'theatrical', name: 'Theatrical Lens', description: 'Frame as a performance — actors, audiences, scripts, improvisation. Who is performing? Who is watching? What is the real show?' },
-    { id: 'horticultural', name: 'Horticultural Lens', description: 'View through gardening — planting seeds, cultivating growth, pruning, composting failures, seasonal cycles. Ideas need soil and patience.' }
-];
-
-// ============================================
-// 1.3 PROMPT VARIATION ENGINE
+// 1.2 PROMPT VARIATION ENGINE
 // ============================================
 
 const PROMPT_VARIANTS = {
@@ -193,7 +176,7 @@ const PROMPT_VARIANTS = {
 };
 
 // ============================================
-// 1.4 MICRO-INSTRUCTIONS
+// 1.3 MICRO-INSTRUCTIONS
 // ============================================
 
 const MICRO_INSTRUCTIONS = [
@@ -247,8 +230,7 @@ const state = {
         tone: null,
         hookType: null,
         constraint: null,
-        persona: null,
-        lens: null
+        persona: null
     },
     storytellingPrompt: '',
     hookPrompt: '',
@@ -340,8 +322,7 @@ function loadTemplateData(templateId) {
         toneSelect: state.parameters.tone,
         hookTypeSelect: state.parameters.hookType,
         constraintSelect: state.parameters.constraint,
-        personaSelect: state.parameters.persona,
-        lensSelect: state.parameters.lens
+        personaSelect: state.parameters.persona
     };
 
     for (const [id, value] of Object.entries(selects)) {
@@ -718,8 +699,7 @@ function populateSelectOptions() {
         { id: 'toneSelect', options: EMOTIONAL_TONES, paramKey: 'tone' },
         { id: 'hookTypeSelect', options: HOOK_TYPES, paramKey: 'hookType' },
         { id: 'constraintSelect', options: SPECIAL_CONSTRAINTS, paramKey: 'constraint' },
-        { id: 'personaSelect', options: WRITER_PERSONAS, paramKey: 'persona' },
-        { id: 'lensSelect', options: CONCEPTUAL_LENSES, paramKey: 'lens' }
+        { id: 'personaSelect', options: WRITER_PERSONAS, paramKey: 'persona' }
     ];
 
     selects.forEach(({ id, options, paramKey }) => {
@@ -751,8 +731,7 @@ function randomizeParameters() {
         tone: randomFrom(EMOTIONAL_TONES).id,
         hookType: randomFrom(HOOK_TYPES).id,
         constraint: randomFrom(SPECIAL_CONSTRAINTS).id,
-        persona: randomFrom(WRITER_PERSONAS).id,
-        lens: randomFrom(CONCEPTUAL_LENSES).id
+        persona: randomFrom(WRITER_PERSONAS).id
     };
 
     // Update select elements
@@ -762,7 +741,6 @@ function randomizeParameters() {
     document.getElementById('hookTypeSelect').value = state.parameters.hookType;
     document.getElementById('constraintSelect').value = state.parameters.constraint;
     document.getElementById('personaSelect').value = state.parameters.persona;
-    document.getElementById('lensSelect').value = state.parameters.lens;
 
     saveParameters();
 }
@@ -871,21 +849,31 @@ function bindEventListeners() {
         document.getElementById('settingsModal').classList.add('hidden');
     });
 
-    // Temperature sliders
+    // Temperature sliders - auto-save since they're in the sidebar now
     document.getElementById('outlineTempSlider').addEventListener('input', (e) => {
         document.getElementById('outlineTempValue').textContent = e.target.value;
+        state.settings.outlineTemp = parseFloat(e.target.value);
+        localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
     });
     document.getElementById('scriptTempSlider').addEventListener('input', (e) => {
         document.getElementById('scriptTempValue').textContent = e.target.value;
+        state.settings.scriptTemp = parseFloat(e.target.value);
+        localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
     });
     document.getElementById('hookTempSlider').addEventListener('input', (e) => {
         document.getElementById('hookTempValue').textContent = e.target.value;
+        state.settings.hookTemp = parseFloat(e.target.value);
+        localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
     });
     document.getElementById('frequencyPenaltySlider').addEventListener('input', (e) => {
         document.getElementById('frequencyPenaltyValue').textContent = e.target.value;
+        state.settings.frequencyPenalty = parseFloat(e.target.value);
+        localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
     });
     document.getElementById('presencePenaltySlider').addEventListener('input', (e) => {
         document.getElementById('presencePenaltyValue').textContent = e.target.value;
+        state.settings.presencePenalty = parseFloat(e.target.value);
+        localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
     });
 
     // Tab switching
@@ -1100,8 +1088,7 @@ function getParameterDetails() {
         tone: EMOTIONAL_TONES.find(t => t.id === state.parameters.tone),
         hookType: HOOK_TYPES.find(h => h.id === state.parameters.hookType),
         constraint: SPECIAL_CONSTRAINTS.find(c => c.id === state.parameters.constraint),
-        persona: WRITER_PERSONAS.find(p => p.id === state.parameters.persona),
-        lens: CONCEPTUAL_LENSES.find(l => l.id === state.parameters.lens)
+        persona: WRITER_PERSONAS.find(p => p.id === state.parameters.persona)
     };
 }
 
@@ -1150,10 +1137,6 @@ function buildOutlineMessages() {
     const personaDirective = params.persona ?
         `${params.persona.systemDirective}\n\n` : '';
 
-    // Conceptual lens injection
-    const lensDirective = params.lens ?
-        `\nCONCEPTUAL LENS: Approach this topic through a ${params.lens.name}: ${params.lens.description} Use metaphors and framing from this domain throughout.\n` : '';
-
     // Pick random prompt variants
     const opener = pickRandom(PROMPT_VARIANTS.outlineOpeners);
     const antiTemplate = pickRandom(PROMPT_VARIANTS.antiTemplateRules);
@@ -1173,7 +1156,7 @@ function buildOutlineMessages() {
 - Structure: ${params.structure?.name} - ${params.structure?.description}
 - Emotional Tone: ${params.tone?.name} - ${params.tone?.description}
 - Special Constraint: ${params.constraint?.name} - ${params.constraint?.description}
-${lensDirective}
+
 NICHE/TOPIC:
 ${state.promptTemplate}
 
@@ -1196,7 +1179,7 @@ ${state.promptTemplate}
 I need an outline for a script about this topic (approximately ${state.scriptLength} characters final).
 
 The script should use ${params.narrativeStyle?.name} (${params.narrativeStyle?.description}) as its narrative approach, following a ${params.structure?.name} structure (${params.structure?.description}). The tone should be ${params.tone?.name} (${params.tone?.description}), and it must incorporate this constraint: ${params.constraint?.name} - ${params.constraint?.description}.
-${lensDirective}${antiRepetition}
+${antiRepetition}
 Create a detailed outline including: title concept, main thesis, block-by-block breakdown with insights and connections, emotional arc notes, and overall tone direction.
 
 This is just the blueprint — do not write the full script.
@@ -1204,7 +1187,7 @@ ${antiTemplate}`;
     } else if (structureVariant === 2) {
         // Template C: Open with a challenge/question
         userContent = `Here is a challenge: take the topic below and find the most unexpected, compelling angle to build a script around it.
-${lensDirective}
+
 TOPIC: ${state.promptTemplate}
 
 Your constraints are:
@@ -1224,7 +1207,7 @@ ${antiTemplate}`;
 
 Using this as your creative anchor, outline a script about:
 ${state.promptTemplate}
-${lensDirective}
+
 ADDITIONAL PARAMETERS:
 - Tell it as: ${params.narrativeStyle?.name} (${params.narrativeStyle?.description})
 - Structure it as: ${params.structure?.name} (${params.structure?.description})
@@ -1260,10 +1243,6 @@ function buildScriptMessages(outline) {
     // Pick 3 random micro-instructions
     const microInstructions = pickRandomN(MICRO_INSTRUCTIONS, 3);
 
-    // Conceptual lens
-    const lensDirective = params.lens ?
-        `\nMaintain the ${params.lens.name} throughout: ${params.lens.description}\n` : '';
-
     // Pick a random structural template
     const structureVariant = Math.floor(Math.random() * 4);
 
@@ -1285,7 +1264,7 @@ WRITING PARAMETERS:
 - Structure: ${params.structure?.name} - ${params.structure?.description}
 - Emotional Tone: ${params.tone?.name} - ${params.tone?.description}
 - Special Constraint: ${params.constraint?.name} - ${params.constraint?.description}
-${lensDirective}
+
 CRITICAL RULES:
 - NO bullet points, numbered lists, or subheadings in the final script
 - ${styleDirective}
@@ -1304,7 +1283,7 @@ And here is the outline you must follow:
 ${outline}
 
 Write a ${state.scriptLength}-character script using ${params.narrativeStyle?.name} narration in a ${params.structure?.name} structure. The tone is ${params.tone?.name}. Apply this constraint: ${params.constraint?.name} — ${params.constraint?.description}.
-${lensDirective}
+
 ${styleDirective}
 
 Rules: no bullet points, no lists, no subheadings. No hook — start with the main content. The hook comes later.
@@ -1322,7 +1301,7 @@ TOPIC: ${state.promptTemplate}
 LENGTH: ~${state.scriptLength} characters
 
 Your voice should embody ${params.tone?.name} (${params.tone?.description}). Use ${params.narrativeStyle?.name} as your narrative mode. Follow the ${params.structure?.name} structure. Honor this constraint: ${params.constraint?.name}.
-${lensDirective}
+
 ${styleDirective}
 
 No bullet points. No subheadings. No hook (it will be written separately). Start directly with content.
@@ -1333,7 +1312,7 @@ ${microInstructions.map((m, i) => `- ${m}`).join('\n')}
 ${antiTemplate}`;
     } else {
         userContent = `The constraint that must shape this script: ${params.constraint?.name} — ${params.constraint?.description}
-${lensDirective}
+
 Using the outline below, write the full script (~${state.scriptLength} characters):
 ${outline}
 
@@ -1479,7 +1458,7 @@ function saveGenerationHistory() {
     const entry = {
         topic: state.promptTemplate.slice(0, 80),
         timestamp: Date.now(),
-        paramsUsed: `${params.narrativeStyle?.name}, ${params.structure?.name}, ${params.tone?.name}, ${params.constraint?.name}, ${params.persona?.name || 'none'}, ${params.lens?.name || 'none'}`,
+        paramsUsed: `${params.narrativeStyle?.name}, ${params.structure?.name}, ${params.tone?.name}, ${params.constraint?.name}, ${params.persona?.name || 'none'}`,
         fingerprint: fingerprint
     };
 
