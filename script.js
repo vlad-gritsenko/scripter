@@ -16,7 +16,17 @@ const NARRATIVE_STYLES = [
     { id: 'voiceover', name: 'Voiceover Narration', description: 'Like a documentary narrator observing' },
     { id: 'stream', name: 'Stream of Consciousness', description: 'Flowing, unfiltered thought process' },
     { id: 'case-study', name: 'Case Study Analysis', description: 'Examines a specific example in depth' },
-    { id: 'interview', name: 'Interview Transcript', description: 'Q&A format revealing insights' }
+    { id: 'interview', name: 'Interview Transcript', description: 'Q&A format revealing insights' },
+    { id: 'unreliable', name: 'Unreliable Narrator', description: 'Narrator whose credibility is questionable, creating tension' },
+    { id: 'second-person', name: 'Second Person', description: 'Addresses the audience as "you", immersing them directly' },
+    { id: 'countdown', name: 'Countdown Narration', description: 'Counts down toward a critical moment or revelation' },
+    { id: 'confessional', name: 'Confessional', description: 'Raw, diary-like admissions as if speaking privately' },
+    { id: 'collected-documents', name: 'Collected Documents', description: 'Assembles evidence from multiple fictional sources' },
+    { id: 'campfire', name: 'Campfire Storyteller', description: 'Oral tradition style, as if told around a fire' },
+    { id: 'field-report', name: 'Field Report', description: 'Dispatches from the front lines of experience' },
+    { id: 'myth-retelling', name: 'Myth Retelling', description: 'Frames modern topics through mythological patterns' },
+    { id: 'debate', name: 'Internal Debate', description: 'Two opposing voices argue within the same narrator' },
+    { id: 'time-traveler', name: 'Time Traveler Log', description: 'Observations from someone visiting from the future or past' }
 ];
 
 const STRUCTURAL_TEMPLATES = [
@@ -29,7 +39,17 @@ const STRUCTURAL_TEMPLATES = [
     { id: 'day-in-life', name: 'Day in the Life', description: 'Follow a timeline through one day' },
     { id: 'nested', name: 'Story Within Story', description: 'Frame narrative containing inner story' },
     { id: 'question-based', name: 'Question Progression', description: 'Each section answers a deeper question' },
-    { id: 'circular', name: 'Circular Narrative', description: 'Ends where it began, transformed' }
+    { id: 'circular', name: 'Circular Narrative', description: 'Ends where it began, transformed' },
+    { id: 'russian-nesting', name: 'Russian Nesting', description: 'Each layer reveals a deeper, smaller story inside' },
+    { id: 'mosaic', name: 'Mosaic / Collage', description: 'Fragments that form a complete picture when assembled' },
+    { id: 'before-after', name: 'Before and After', description: 'Sharp contrast between two states divided by a pivot' },
+    { id: 'spiral', name: 'Spiral Deepening', description: 'Returns to the same idea at increasing depth each time' },
+    { id: 'telescope', name: 'Telescope', description: 'Zooms from cosmic scale down to intimate detail' },
+    { id: 'trial', name: 'Trial Structure', description: 'Evidence, cross-examination, verdict format' },
+    { id: 'journey-map', name: 'Journey Map', description: 'Follows a literal or metaphorical path with waypoints' },
+    { id: 'cause-chain', name: 'Cause Chain', description: 'Each event directly triggers the next in a domino sequence' },
+    { id: 'bookends', name: 'Bookends', description: 'Opens and closes with nearly identical scenes, changed by context' },
+    { id: 'countdown-structure', name: 'Countdown Structure', description: 'Numbered segments counting toward a climactic zero' }
 ];
 
 const EMOTIONAL_TONES = [
@@ -42,7 +62,17 @@ const EMOTIONAL_TONES = [
     { id: 'warm', name: 'Warm & Friendly', description: 'Inviting, like talking to a friend' },
     { id: 'clinical', name: 'Clinical & Analytical', description: 'Detached, precise, objective' },
     { id: 'passionate', name: 'Passionate & Urgent', description: 'Intense conviction and energy' },
-    { id: 'mysterious', name: 'Mysterious & Intriguing', description: 'Leaves questions, builds curiosity' }
+    { id: 'mysterious', name: 'Mysterious & Intriguing', description: 'Leaves questions, builds curiosity' },
+    { id: 'darkly-comic', name: 'Darkly Comic', description: 'Finds dark humor in serious subjects' },
+    { id: 'reverential', name: 'Reverential', description: 'Deep respect and awe for the subject' },
+    { id: 'restless', name: 'Restless & Searching', description: 'Unsettled energy, actively seeking answers' },
+    { id: 'nostalgic', name: 'Nostalgic', description: 'Bittersweet longing for what was or could have been' },
+    { id: 'defiant', name: 'Defiant', description: 'Rebellious resistance against conventional thinking' },
+    { id: 'intimate-whisper', name: 'Intimate Whisper', description: 'As if sharing secrets in a quiet room' },
+    { id: 'epic-gravity', name: 'Epic Gravity', description: 'Treats the subject with grand, historical weight' },
+    { id: 'playful-mischief', name: 'Playful Mischief', description: 'Gleeful subversion with a wink' },
+    { id: 'raw-unfiltered', name: 'Raw & Unfiltered', description: 'Brutally honest, no polish or pleasantries' },
+    { id: 'wonder', name: 'Childlike Wonder', description: 'Approaching everything with fresh amazement' }
 ];
 
 const HOOK_TYPES = [
@@ -55,7 +85,17 @@ const HOOK_TYPES = [
     { id: 'what-if', name: 'What If Scenario', description: 'Hypothetical that reframes everything' },
     { id: 'contradiction', name: 'Contradiction', description: 'Present a paradox immediately' },
     { id: 'bold-statement', name: 'Bold Statement', description: 'Make a claim that demands attention' },
-    { id: 'sensory', name: 'Sensory Description', description: 'Immerse in physical experience first' }
+    { id: 'sensory', name: 'Sensory Description', description: 'Immerse in physical experience first' },
+    { id: 'micro-story', name: 'Micro Story', description: 'A complete tiny narrative in 2-3 sentences' },
+    { id: 'future-flash', name: 'Future Flash', description: 'Jump to a future consequence, then rewind' },
+    { id: 'number-anchor', name: 'Number Anchor', description: 'Lead with a specific, striking number or statistic' },
+    { id: 'false-assumption', name: 'False Assumption', description: 'State what everyone assumes, then shatter it' },
+    { id: 'direct-address', name: 'Direct Address', description: 'Speak directly to a specific type of person' },
+    { id: 'sound-effect', name: 'Sound / Action', description: 'Open with an onomatopoeia or physical action' },
+    { id: 'time-stamp', name: 'Time Stamp', description: 'Begin with a precise moment in time' },
+    { id: 'confession-others', name: 'Others Confession', description: 'Start with what others secretly think but never say' },
+    { id: 'impossible-choice', name: 'Impossible Choice', description: 'Present a dilemma with no easy answer' },
+    { id: 'pattern-break', name: 'Pattern Break', description: 'Set up a rhythm then immediately disrupt it' }
 ];
 
 const SPECIAL_CONSTRAINTS = [
@@ -68,7 +108,128 @@ const SPECIAL_CONSTRAINTS = [
     { id: 'audience-question', name: 'Direct Question', description: 'Ask the reader something directly' },
     { id: 'contrasting-views', name: 'Contrasting Perspectives', description: 'Show multiple viewpoints' },
     { id: 'recurring-motif', name: 'Recurring Motif', description: 'A symbol or phrase that returns' },
-    { id: 'tension-pacing', name: 'Build Tension', description: 'Deliberately control pacing for suspense' }
+    { id: 'tension-pacing', name: 'Build Tension', description: 'Deliberately control pacing for suspense' },
+    { id: 'time-capsule', name: 'Time Capsule Perspective', description: 'Write as if preserving this for someone 100 years from now' },
+    { id: 'rule-of-three-subversion', name: 'Rule of Three Subversion', description: 'Set up three examples, subvert the third' },
+    { id: 'sensory-anchoring', name: 'Sensory Anchoring', description: 'Ground every section with a specific physical sensation' },
+    { id: 'single-sentence-paragraph', name: 'Power Sentence', description: 'Include at least one standalone single-sentence paragraph for impact' },
+    { id: 'unanswered-question', name: 'Unanswered Question', description: 'Leave one profound question deliberately unanswered' },
+    { id: 'callback', name: 'Callback Loop', description: 'Reference the opening in the closing with new meaning' },
+    { id: 'constraint-of-absence', name: 'Constraint of Absence', description: 'Never directly name the core subject, only describe around it' },
+    { id: 'tempo-shift', name: 'Tempo Shift', description: 'Dramatically change pacing at least once mid-script' },
+    { id: 'embedded-list', name: 'Embedded List', description: 'Weave a list naturally into narrative prose' },
+    { id: 'emotional-pivot', name: 'Emotional Pivot', description: 'Shift emotional register sharply at a key moment' }
+];
+
+// ============================================
+// 1.1 WRITER PERSONAS
+// ============================================
+
+const WRITER_PERSONAS = [
+    { id: 'veteran-journalist', name: 'Veteran Journalist', systemDirective: 'You write like a seasoned investigative journalist. Your prose is lean, every sentence earns its place. You build credibility through specifics — names, dates, verified details. You distrust generalities and always ask "says who?"' },
+    { id: 'poet-essayist', name: 'Poet Essayist', systemDirective: 'You write like a poet who wandered into nonfiction. Your sentences have rhythm and cadence. You reach for metaphor before explanation, and you believe the sound of language matters as much as its meaning. You linger on images.' },
+    { id: 'standup-philosopher', name: 'Stand-Up Philosopher', systemDirective: 'You write like a comedian who reads too much philosophy. You find the absurd in the serious and the serious in the absurd. Your humor is a vehicle for genuine insight, never just decoration. You land punchlines that also land points.' },
+    { id: 'war-correspondent', name: 'War Correspondent', systemDirective: 'You write with the urgency of someone reporting from the front lines. Short, punchy dispatches. You put the reader in the scene with sensory detail. Nothing is abstract — everything is ground-level, lived, witnessed.' },
+    { id: 'museum-curator', name: 'Museum Curator', systemDirective: 'You write like someone who has spent decades with artifacts and their stories. You provide context in layers — historical, cultural, personal. You connect objects and ideas to their deeper significance. You reveal meaning through careful arrangement.' },
+    { id: 'street-philosopher', name: 'Street Philosopher', systemDirective: 'You write like someone who learned wisdom from experience, not textbooks. Your language is direct, sometimes rough-edged. You use everyday analogies and speak uncomfortable truths. You have no patience for pretension.' },
+    { id: 'nature-documentarian', name: 'Nature Documentarian', systemDirective: 'You write with the patient observation of someone who has spent years watching the natural world. You draw parallels between nature and human behavior. Your descriptions are vivid, precise, and carry quiet reverence.' },
+    { id: 'noir-detective', name: 'Noir Detective', systemDirective: 'You write in the shadow-soaked style of classic noir. Short sentences. Cynical observations that cut deep. You see through surfaces to the uncomfortable machinery underneath. The world is complicated and you narrate it without flinching.' },
+    { id: 'enthusiastic-teacher', name: 'Enthusiastic Teacher', systemDirective: 'You write like the teacher who made you love a subject. You build bridges between the unfamiliar and the familiar. You use "imagine this..." and "here is the thing..." You get genuinely excited and that excitement is contagious.' },
+    { id: 'ancient-storyteller', name: 'Ancient Storyteller', systemDirective: 'You write as if you are passing down knowledge through oral tradition. Your prose has the weight and rhythm of stories told a thousand times. You use parables, proverbs, and the cadence of legend. Modern topics feel ancient and timeless.' },
+    { id: 'gonzo-reporter', name: 'Gonzo Reporter', systemDirective: 'You write yourself into the story. Your observations are subjective, your reactions are part of the narrative. Rules of objectivity bore you. You are chaotic, vivid, and brutally honest about what you see and feel.' },
+    { id: 'reluctant-expert', name: 'Reluctant Expert', systemDirective: 'You write like someone who knows more than they want to about a subject. Your expertise leaks through despite a casual, almost reluctant delivery. You undersell yourself while dropping insights that reveal deep knowledge.' }
+];
+
+// ============================================
+// 1.2 CONCEPTUAL LENSES
+// ============================================
+
+const CONCEPTUAL_LENSES = [
+    { id: 'economic', name: 'Economic Lens', description: 'View through incentives, trade-offs, scarcity, and opportunity costs. Frame decisions as markets, investments, and returns.' },
+    { id: 'forensic', name: 'Forensic Lens', description: 'Approach as an investigation. Follow evidence trails, question alibis, reconstruct timelines. Treat the topic as a crime scene of cause and effect.' },
+    { id: 'culinary', name: 'Culinary Lens', description: 'Frame through cooking metaphors — ingredients, recipes, heat, timing, seasoning. Ideas are dishes that need the right balance.' },
+    { id: 'architectural', name: 'Architectural Lens', description: 'See structure, foundations, load-bearing walls, and facades. Ideas are buildings — some well-constructed, some about to collapse.' },
+    { id: 'musical', name: 'Musical Lens', description: 'Frame through rhythm, harmony, dissonance, and crescendo. Ideas have tempo. Arguments have melody. Conflicts are clashing keys.' },
+    { id: 'ecological', name: 'Ecological Lens', description: 'View as an ecosystem — predators, symbiosis, invasive species, carrying capacity. Everything is interconnected and competing for resources.' },
+    { id: 'medical', name: 'Medical Lens', description: 'Diagnose the topic like a doctor. Identify symptoms, root causes, and treatments. Some ideas are healthy, others are chronic conditions.' },
+    { id: 'cartographic', name: 'Cartographic Lens', description: 'Map the territory. Identify borders, uncharted regions, well-traveled paths, and dead ends. The topic is a landscape to navigate.' },
+    { id: 'theatrical', name: 'Theatrical Lens', description: 'Frame as a performance — actors, audiences, scripts, improvisation. Who is performing? Who is watching? What is the real show?' },
+    { id: 'horticultural', name: 'Horticultural Lens', description: 'View through gardening — planting seeds, cultivating growth, pruning, composting failures, seasonal cycles. Ideas need soil and patience.' }
+];
+
+// ============================================
+// 1.3 PROMPT VARIATION ENGINE
+// ============================================
+
+const PROMPT_VARIANTS = {
+    outlineOpeners: [
+        'You are a professional script writer creating an outline for a compelling script.',
+        'As an expert narrative architect, design the blueprint for a powerful script.',
+        'You are a story strategist. Your task is to map out the skeleton of an unforgettable script.',
+        'Think like a showrunner planning a pilot episode. Outline a script that hooks from the first line.',
+        'You are a writing mentor helping a student plan their best work. Create a detailed script outline.'
+    ],
+    scriptInstructions: [
+        'Write a complete script based on this outline.',
+        'Transform this outline into a fully realized, flowing script.',
+        'Bring this blueprint to life as a polished, complete script.',
+        'Use this outline as your roadmap and write the definitive version of this script.',
+        'Flesh out every section of this outline into vivid, compelling prose.'
+    ],
+    styleDirectives: [
+        'Write in flowing, conversational paragraphs. Vary sentence length dramatically. Show, don\'t tell.',
+        'Your prose should feel like a conversation — natural, surprising, and impossible to skim. Mix long flowing sentences with short punches.',
+        'Write with the rhythm of spoken language. Let some sentences stretch. Let others stop dead. Make the reader feel the pacing in their body.',
+        'Craft prose that reads aloud beautifully. Alternate between expansive descriptions and razor-sharp observations. Never lecture.',
+        'Write like the best magazine longform — propulsive, detailed, human. Every paragraph should make the reader need the next one.'
+    ],
+    antiTemplateRules: [
+        'Make it compelling, unique, and impossible to template.',
+        'Avoid any structure that feels formulaic. If you catch yourself following a pattern, break it.',
+        'This script must not read like any other script on this topic. Find the angle no one else found.',
+        'Reject cliches, stock phrases, and predictable structures. Every choice should feel intentional and fresh.',
+        'Write as if this is the only script on this topic that will ever matter. No filler, no autopilot.'
+    ]
+};
+
+// ============================================
+// 1.4 MICRO-INSTRUCTIONS
+// ============================================
+
+const MICRO_INSTRUCTIONS = [
+    'Include one moment where the narrative zooms into an unexpected small detail.',
+    'Use a callback — reference something from the first third in the final third.',
+    'Include one sentence that is only three words long at a crucial moment.',
+    'Use an analogy drawn from nature.',
+    'Introduce a hypothetical person briefly to illustrate a point.',
+    'Include a moment of deliberate silence or pause in the narrative.',
+    'Use a question that you do NOT answer — let it hang.',
+    'Describe a physical sensation to ground an abstract idea.',
+    'Include one line that could work as a standalone quote.',
+    'Use the word "but" to create a sharp reversal at a key moment.',
+    'Embed a subtle contradiction that makes the reader think twice.',
+    'Start one paragraph with a single concrete image before expanding.',
+    'Include a specific number or measurement to anchor credibility.',
+    'Use a comparison to something from everyday life that no one usually connects to this topic.',
+    'Write one passage that accelerates — sentences getting shorter and faster.',
+    'Include a moment where you acknowledge what you do NOT know.',
+    'Use repetition of a key phrase for rhythmic emphasis.',
+    'Describe something through the lens of time — how it looked 10 years ago vs. now.',
+    'Include one moment of dark humor or irony.',
+    'Create a moment where two seemingly unrelated ideas suddenly connect.',
+    'Use a concrete before/after contrast to show change.',
+    'Include a direct address to the reader that feels personal, not generic.',
+    'Use synesthesia — describe one sense using the language of another.',
+    'Include a brief, vivid character sketch in one or two sentences.',
+    'Plant a detail early that pays off later in an unexpected way.',
+    'Use the structure of a list disguised as flowing prose.',
+    'Include a moment where the narrative contradicts itself and then resolves the contradiction.',
+    'Reference a specific place — real or imagined — with enough detail to see it.',
+    'Use an abrupt tonal shift to create emotional whiplash.',
+    'Include one sentence that breaks the fourth wall without being jarring.',
+    'Use an extended comparison that runs for at least three sentences.',
+    'Include a moment of genuine tenderness in an otherwise tough narrative.',
+    'End one paragraph on a cliffhanger that pulls into the next.'
 ];
 
 
@@ -85,7 +246,9 @@ const state = {
         structure: null,
         tone: null,
         hookType: null,
-        constraint: null
+        constraint: null,
+        persona: null,
+        lens: null
     },
     storytellingPrompt: '',
     hookPrompt: '',
@@ -94,7 +257,11 @@ const state = {
         outlineModel: 'anthropic/claude-sonnet-4',
         scriptModel: 'anthropic/claude-sonnet-4',
         hookModel: 'anthropic/claude-sonnet-4',
-        temperature: 0.8
+        outlineTemp: 0.9,
+        scriptTemp: 0.7,
+        hookTemp: 0.85,
+        frequencyPenalty: 0.3,
+        presencePenalty: 0.2
     },
     generated: {
         outline: '',
@@ -102,6 +269,7 @@ const state = {
         hook: '',
         final: ''
     },
+    generationHistory: [],
     isGenerating: false,
     currentTab: 'final',
     theme: 'dark'
@@ -171,7 +339,9 @@ function loadTemplateData(templateId) {
         structureSelect: state.parameters.structure,
         toneSelect: state.parameters.tone,
         hookTypeSelect: state.parameters.hookType,
-        constraintSelect: state.parameters.constraint
+        constraintSelect: state.parameters.constraint,
+        personaSelect: state.parameters.persona,
+        lensSelect: state.parameters.lens
     };
 
     for (const [id, value] of Object.entries(selects)) {
@@ -442,8 +612,9 @@ async function init() {
 
 function loadSettings() {
     const saved = localStorage.getItem('scriptBuilder_settings');
+    let parsed = null;
     if (saved) {
-        const parsed = JSON.parse(saved);
+        parsed = JSON.parse(saved);
         state.settings = { ...state.settings, ...parsed };
     }
 
@@ -468,13 +639,30 @@ function loadSettings() {
         state.settings.hookModel = 'anthropic/claude-sonnet-4.5';
     }
 
+    // Migrate old single temperature to per-stage if needed
+    if (parsed && parsed.temperature !== undefined && parsed.outlineTemp === undefined) {
+        state.settings.outlineTemp = 0.9;
+        state.settings.scriptTemp = 0.7;
+        state.settings.hookTemp = 0.85;
+        state.settings.frequencyPenalty = 0.3;
+        state.settings.presencePenalty = 0.2;
+    }
+
     // Apply to UI
     document.getElementById('apiKeyInput').value = state.settings.apiKey;
     document.getElementById('outlineModelSelect').value = state.settings.outlineModel;
     document.getElementById('scriptModelSelect').value = state.settings.scriptModel;
     document.getElementById('hookModelSelect').value = state.settings.hookModel;
-    document.getElementById('temperatureSlider').value = state.settings.temperature;
-    document.getElementById('tempValue').textContent = state.settings.temperature;
+    document.getElementById('outlineTempSlider').value = state.settings.outlineTemp;
+    document.getElementById('outlineTempValue').textContent = state.settings.outlineTemp;
+    document.getElementById('scriptTempSlider').value = state.settings.scriptTemp;
+    document.getElementById('scriptTempValue').textContent = state.settings.scriptTemp;
+    document.getElementById('hookTempSlider').value = state.settings.hookTemp;
+    document.getElementById('hookTempValue').textContent = state.settings.hookTemp;
+    document.getElementById('frequencyPenaltySlider').value = state.settings.frequencyPenalty;
+    document.getElementById('frequencyPenaltyValue').textContent = state.settings.frequencyPenalty;
+    document.getElementById('presencePenaltySlider').value = state.settings.presencePenalty;
+    document.getElementById('presencePenaltyValue').textContent = state.settings.presencePenalty;
 
     // Load saved parameters
     const savedParams = localStorage.getItem('scriptBuilder_parameters');
@@ -529,7 +717,9 @@ function populateSelectOptions() {
         { id: 'structureSelect', options: STRUCTURAL_TEMPLATES, paramKey: 'structure' },
         { id: 'toneSelect', options: EMOTIONAL_TONES, paramKey: 'tone' },
         { id: 'hookTypeSelect', options: HOOK_TYPES, paramKey: 'hookType' },
-        { id: 'constraintSelect', options: SPECIAL_CONSTRAINTS, paramKey: 'constraint' }
+        { id: 'constraintSelect', options: SPECIAL_CONSTRAINTS, paramKey: 'constraint' },
+        { id: 'personaSelect', options: WRITER_PERSONAS, paramKey: 'persona' },
+        { id: 'lensSelect', options: CONCEPTUAL_LENSES, paramKey: 'lens' }
     ];
 
     selects.forEach(({ id, options, paramKey }) => {
@@ -560,7 +750,9 @@ function randomizeParameters() {
         structure: randomFrom(STRUCTURAL_TEMPLATES).id,
         tone: randomFrom(EMOTIONAL_TONES).id,
         hookType: randomFrom(HOOK_TYPES).id,
-        constraint: randomFrom(SPECIAL_CONSTRAINTS).id
+        constraint: randomFrom(SPECIAL_CONSTRAINTS).id,
+        persona: randomFrom(WRITER_PERSONAS).id,
+        lens: randomFrom(CONCEPTUAL_LENSES).id
     };
 
     // Update select elements
@@ -569,6 +761,8 @@ function randomizeParameters() {
     document.getElementById('toneSelect').value = state.parameters.tone;
     document.getElementById('hookTypeSelect').value = state.parameters.hookType;
     document.getElementById('constraintSelect').value = state.parameters.constraint;
+    document.getElementById('personaSelect').value = state.parameters.persona;
+    document.getElementById('lensSelect').value = state.parameters.lens;
 
     saveParameters();
 }
@@ -596,7 +790,11 @@ function saveSettings() {
     state.settings.outlineModel = document.getElementById('outlineModelSelect').value;
     state.settings.scriptModel = document.getElementById('scriptModelSelect').value;
     state.settings.hookModel = document.getElementById('hookModelSelect').value;
-    state.settings.temperature = parseFloat(document.getElementById('temperatureSlider').value);
+    state.settings.outlineTemp = parseFloat(document.getElementById('outlineTempSlider').value);
+    state.settings.scriptTemp = parseFloat(document.getElementById('scriptTempSlider').value);
+    state.settings.hookTemp = parseFloat(document.getElementById('hookTempSlider').value);
+    state.settings.frequencyPenalty = parseFloat(document.getElementById('frequencyPenaltySlider').value);
+    state.settings.presencePenalty = parseFloat(document.getElementById('presencePenaltySlider').value);
 
     localStorage.setItem('scriptBuilder_settings', JSON.stringify(state.settings));
 }
@@ -673,9 +871,21 @@ function bindEventListeners() {
         document.getElementById('settingsModal').classList.add('hidden');
     });
 
-    // Temperature slider
-    document.getElementById('temperatureSlider').addEventListener('input', (e) => {
-        document.getElementById('tempValue').textContent = e.target.value;
+    // Temperature sliders
+    document.getElementById('outlineTempSlider').addEventListener('input', (e) => {
+        document.getElementById('outlineTempValue').textContent = e.target.value;
+    });
+    document.getElementById('scriptTempSlider').addEventListener('input', (e) => {
+        document.getElementById('scriptTempValue').textContent = e.target.value;
+    });
+    document.getElementById('hookTempSlider').addEventListener('input', (e) => {
+        document.getElementById('hookTempValue').textContent = e.target.value;
+    });
+    document.getElementById('frequencyPenaltySlider').addEventListener('input', (e) => {
+        document.getElementById('frequencyPenaltyValue').textContent = e.target.value;
+    });
+    document.getElementById('presencePenaltySlider').addEventListener('input', (e) => {
+        document.getElementById('presencePenaltyValue').textContent = e.target.value;
     });
 
     // Tab switching
@@ -840,10 +1050,24 @@ function markAllComplete() {
 // 6. API INTEGRATION
 // ============================================
 
-async function callOpenRouter(prompt, model) {
+async function callOpenRouter(messages, model, options = {}) {
     if (!state.settings.apiKey) {
         throw new Error('API key not configured. Click the settings icon to add your OpenRouter API key.');
     }
+
+    // Apply temperature jitter (±0.05)
+    const baseTemp = options.temperature || 0.8;
+    const jitter = (Math.random() - 0.5) * 0.1;
+    const temperature = Math.max(0, Math.min(2, baseTemp + jitter));
+
+    const body = {
+        model: model,
+        messages: messages,
+        temperature: parseFloat(temperature.toFixed(3)),
+        max_tokens: options.max_tokens || 4000,
+        frequency_penalty: state.settings.frequencyPenalty,
+        presence_penalty: state.settings.presencePenalty
+    };
 
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
@@ -853,12 +1077,7 @@ async function callOpenRouter(prompt, model) {
             'HTTP-Referer': window.location.href,
             'X-Title': 'Script Builder'
         },
-        body: JSON.stringify({
-            model: model,
-            messages: [{ role: 'user', content: prompt }],
-            temperature: state.settings.temperature,
-            max_tokens: 4000
-        })
+        body: JSON.stringify(body)
     });
 
     if (!response.ok) {
@@ -880,50 +1099,180 @@ function getParameterDetails() {
         structure: STRUCTURAL_TEMPLATES.find(s => s.id === state.parameters.structure),
         tone: EMOTIONAL_TONES.find(t => t.id === state.parameters.tone),
         hookType: HOOK_TYPES.find(h => h.id === state.parameters.hookType),
-        constraint: SPECIAL_CONSTRAINTS.find(c => c.id === state.parameters.constraint)
+        constraint: SPECIAL_CONSTRAINTS.find(c => c.id === state.parameters.constraint),
+        persona: WRITER_PERSONAS.find(p => p.id === state.parameters.persona),
+        lens: CONCEPTUAL_LENSES.find(l => l.id === state.parameters.lens)
     };
 }
 
-function buildOutlinePrompt() {
+// Helper: pick random item from array
+function pickRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// Helper: pick N unique random items from array
+function pickRandomN(arr, n) {
+    const shuffled = [...arr].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, n);
+}
+
+// Helper: get anti-repetition context for same-topic generations
+function getAntiRepetitionContext() {
+    if (!state.generationHistory.length) return '';
+
+    const topicSnippet = state.promptTemplate.toLowerCase().trim().slice(0, 80);
+    const relevant = state.generationHistory.filter(h =>
+        h.topic.toLowerCase().includes(topicSnippet.slice(0, 30)) ||
+        topicSnippet.includes(h.topic.toLowerCase().slice(0, 30))
+    ).slice(-3);
+
+    if (!relevant.length) return '';
+
+    let context = '\n\nAVOID THESE PREVIOUS APPROACHES (you have already covered these angles):\n';
+    relevant.forEach((h, i) => {
+        context += `\nPrevious Generation ${i + 1}:\n`;
+        context += `- Parameters: ${h.paramsUsed}\n`;
+        if (h.fingerprint) {
+            context += `- Approach: ${h.fingerprint}\n`;
+        }
+    });
+    context += '\nFind a COMPLETELY DIFFERENT angle, structure, and set of examples. Do not repeat these approaches.\n';
+    return context;
+}
+
+function buildOutlineMessages() {
     const params = getParameterDetails();
     const storytellingContext = state.storytellingPrompt ?
         `\n\nUSE THESE STORYTELLING PRINCIPLES AS YOUR GUIDE:\n${state.storytellingPrompt}\n\n` : '';
+    const antiRepetition = getAntiRepetitionContext();
 
-    return `You are a professional script writer creating an outline for a compelling script.
+    // Persona system directive
+    const personaDirective = params.persona ?
+        `${params.persona.systemDirective}\n\n` : '';
 
-NICHE/TOPIC:
-${state.promptTemplate}
+    // Conceptual lens injection
+    const lensDirective = params.lens ?
+        `\nCONCEPTUAL LENS: Approach this topic through a ${params.lens.name}: ${params.lens.description} Use metaphors and framing from this domain throughout.\n` : '';
 
-TARGET LENGTH: Approximately ${state.scriptLength} characters for the final script.
+    // Pick random prompt variants
+    const opener = pickRandom(PROMPT_VARIANTS.outlineOpeners);
+    const antiTemplate = pickRandom(PROMPT_VARIANTS.antiTemplateRules);
 
-WRITING PARAMETERS TO FOLLOW:
+    // Pick a random structural template (4 arrangements)
+    const structureVariant = Math.floor(Math.random() * 4);
+
+    // Build system message
+    const systemContent = `${personaDirective}${opener}${storytellingContext}`;
+
+    // Build user message with structural variation
+    let userContent;
+    if (structureVariant === 0) {
+        // Template A: Parameters first, then topic
+        userContent = `WRITING PARAMETERS TO FOLLOW:
 - Narrative Style: ${params.narrativeStyle?.name} - ${params.narrativeStyle?.description}
 - Structure: ${params.structure?.name} - ${params.structure?.description}
 - Emotional Tone: ${params.tone?.name} - ${params.tone?.description}
 - Special Constraint: ${params.constraint?.name} - ${params.constraint?.description}
-${storytellingContext}
+${lensDirective}
+NICHE/TOPIC:
+${state.promptTemplate}
+
+TARGET LENGTH: Approximately ${state.scriptLength} characters for the final script.
+${antiRepetition}
 Create a detailed outline (master plan) for this script. Include:
 1. A clear title concept
 2. The main thesis/angle/unique perspective
-3. Block-by-block breakdown with:
-   - Main point of each block
-   - Key insights or examples to include
-   - How it connects to the overall narrative
+3. Block-by-block breakdown with main points, key insights, and narrative connections
 4. The emotional arc and pacing notes
 5. Overall tone of the narration
 
 DO NOT write the full script yet. This is just the outline/blueprint.
-Write in a clear, organized format that another writer could follow.`;
+${antiTemplate}`;
+    } else if (structureVariant === 1) {
+        // Template B: Topic first, parameters woven in
+        userContent = `NICHE/TOPIC:
+${state.promptTemplate}
+
+I need an outline for a script about this topic (approximately ${state.scriptLength} characters final).
+
+The script should use ${params.narrativeStyle?.name} (${params.narrativeStyle?.description}) as its narrative approach, following a ${params.structure?.name} structure (${params.structure?.description}). The tone should be ${params.tone?.name} (${params.tone?.description}), and it must incorporate this constraint: ${params.constraint?.name} - ${params.constraint?.description}.
+${lensDirective}${antiRepetition}
+Create a detailed outline including: title concept, main thesis, block-by-block breakdown with insights and connections, emotional arc notes, and overall tone direction.
+
+This is just the blueprint — do not write the full script.
+${antiTemplate}`;
+    } else if (structureVariant === 2) {
+        // Template C: Open with a challenge/question
+        userContent = `Here is a challenge: take the topic below and find the most unexpected, compelling angle to build a script around it.
+${lensDirective}
+TOPIC: ${state.promptTemplate}
+
+Your constraints are:
+- Narrative Style: ${params.narrativeStyle?.name} — ${params.narrativeStyle?.description}
+- Structure: ${params.structure?.name} — ${params.structure?.description}
+- Tone: ${params.tone?.name} — ${params.tone?.description}
+- Special Constraint: ${params.constraint?.name} — ${params.constraint?.description}
+- Target length: ~${state.scriptLength} characters
+${antiRepetition}
+What outline would make a reader unable to look away? Plan it now — title, thesis, block-by-block breakdown, emotional arc, and tone notes.
+
+Do NOT write the script. Only the outline.
+${antiTemplate}`;
+    } else {
+        // Template D: Lead with the constraint
+        userContent = `CONSTRAINT TO BUILD AROUND: ${params.constraint?.name} — ${params.constraint?.description}
+
+Using this as your creative anchor, outline a script about:
+${state.promptTemplate}
+${lensDirective}
+ADDITIONAL PARAMETERS:
+- Tell it as: ${params.narrativeStyle?.name} (${params.narrativeStyle?.description})
+- Structure it as: ${params.structure?.name} (${params.structure?.description})
+- Emotional register: ${params.tone?.name} (${params.tone?.description})
+- Target: ~${state.scriptLength} characters
+${antiRepetition}
+Create the outline: title, unique angle, block-by-block plan with key insights, emotional arc, tone notes.
+
+Blueprint only — no full script.
+${antiTemplate}`;
+    }
+
+    return [
+        { role: 'system', content: systemContent },
+        { role: 'user', content: userContent }
+    ];
 }
 
-function buildScriptPrompt(outline) {
+function buildScriptMessages(outline) {
     const params = getParameterDetails();
     const storytellingContext = state.storytellingPrompt ?
         `\n\nSTORYTELLING PRINCIPLES TO APPLY:\n${state.storytellingPrompt}\n\n` : '';
 
-    return `You are a professional script writer. Write a complete script based on this outline.
+    // Persona system directive
+    const personaDirective = params.persona ?
+        `${params.persona.systemDirective}\n\n` : '';
 
-OUTLINE TO FOLLOW:
+    // Pick random prompt variants
+    const instruction = pickRandom(PROMPT_VARIANTS.scriptInstructions);
+    const styleDirective = pickRandom(PROMPT_VARIANTS.styleDirectives);
+    const antiTemplate = pickRandom(PROMPT_VARIANTS.antiTemplateRules);
+
+    // Pick 3 random micro-instructions
+    const microInstructions = pickRandomN(MICRO_INSTRUCTIONS, 3);
+
+    // Conceptual lens
+    const lensDirective = params.lens ?
+        `\nMaintain the ${params.lens.name} throughout: ${params.lens.description}\n` : '';
+
+    // Pick a random structural template
+    const structureVariant = Math.floor(Math.random() * 4);
+
+    // Build system message
+    const systemContent = `${personaDirective}You are a professional script writer. ${instruction}${storytellingContext}`;
+
+    let userContent;
+    if (structureVariant === 0) {
+        userContent = `OUTLINE TO FOLLOW:
 ${outline}
 
 NICHE/TOPIC:
@@ -936,33 +1285,90 @@ WRITING PARAMETERS:
 - Structure: ${params.structure?.name} - ${params.structure?.description}
 - Emotional Tone: ${params.tone?.name} - ${params.tone?.description}
 - Special Constraint: ${params.constraint?.name} - ${params.constraint?.description}
-${storytellingContext}
+${lensDirective}
 CRITICAL RULES:
 - NO bullet points, numbered lists, or subheadings in the final script
-- Write in flowing, conversational paragraphs
+- ${styleDirective}
 - Use specific, concrete details and examples
-- Vary sentence length dramatically
-- Show, don't tell
 - DO NOT write a hook/opening - start directly with the main content after the intro setup
 - The hook will be written separately
 
-Write the complete script now. Make it compelling, unique, and impossible to template.`;
+ADDITIONAL CREATIVE DIRECTIVES (weave in naturally):
+${microInstructions.map((m, i) => `${i + 1}. ${m}`).join('\n')}
+
+Write the complete script now. ${antiTemplate}`;
+    } else if (structureVariant === 1) {
+        userContent = `Here is the topic: ${state.promptTemplate}
+
+And here is the outline you must follow:
+${outline}
+
+Write a ${state.scriptLength}-character script using ${params.narrativeStyle?.name} narration in a ${params.structure?.name} structure. The tone is ${params.tone?.name}. Apply this constraint: ${params.constraint?.name} — ${params.constraint?.description}.
+${lensDirective}
+${styleDirective}
+
+Rules: no bullet points, no lists, no subheadings. No hook — start with the main content. The hook comes later.
+
+Creative directives to weave in:
+${microInstructions.map((m, i) => `${i + 1}. ${m}`).join('\n')}
+
+${antiTemplate}`;
+    } else if (structureVariant === 2) {
+        userContent = `TASK: Transform the outline below into a complete, flowing script.
+
+${outline}
+
+TOPIC: ${state.promptTemplate}
+LENGTH: ~${state.scriptLength} characters
+
+Your voice should embody ${params.tone?.name} (${params.tone?.description}). Use ${params.narrativeStyle?.name} as your narrative mode. Follow the ${params.structure?.name} structure. Honor this constraint: ${params.constraint?.name}.
+${lensDirective}
+${styleDirective}
+
+No bullet points. No subheadings. No hook (it will be written separately). Start directly with content.
+
+Weave these creative elements in naturally:
+${microInstructions.map((m, i) => `- ${m}`).join('\n')}
+
+${antiTemplate}`;
+    } else {
+        userContent = `The constraint that must shape this script: ${params.constraint?.name} — ${params.constraint?.description}
+${lensDirective}
+Using the outline below, write the full script (~${state.scriptLength} characters):
+${outline}
+
+Topic: ${state.promptTemplate}
+Style: ${params.narrativeStyle?.name} | Structure: ${params.structure?.name} | Tone: ${params.tone?.name}
+
+${styleDirective}
+
+Creative fingerprint for this version:
+${microInstructions.map((m, i) => `${i + 1}. ${m}`).join('\n')}
+
+No lists, no subheadings, no hook (written separately). Pure flowing prose.
+${antiTemplate}`;
+    }
+
+    return [
+        { role: 'system', content: systemContent },
+        { role: 'user', content: userContent }
+    ];
 }
 
-function buildHookPrompt(script) {
+function buildHookMessages(script) {
     const params = getParameterDetails();
     const hookContext = state.hookPrompt ?
         `\n\nHOOK WRITING SYSTEM - FOLLOW THESE PRINCIPLES:\n${state.hookPrompt}\n\n` : '';
 
-    return `You are an expert at writing compelling hooks that grab attention immediately.
+    const systemContent = `You are an expert at writing compelling hooks that grab attention immediately.${hookContext}`;
 
-Read this completed script and write a powerful hook for it:
+    const userContent = `Read this completed script and write a powerful hook for it:
 
 SCRIPT:
 ${script}
 
 HOOK TYPE REQUESTED: ${params.hookType?.name} - ${params.hookType?.description}
-${hookContext}
+
 REQUIREMENTS:
 1. The hook must provide immediate topic clarity (reader knows what this is about in first sentence)
 2. Create on-target curiosity (reader believes this is for them and wants more)
@@ -973,6 +1379,11 @@ REQUIREMENTS:
 7. Maximum 4-6 sentences for the hook
 
 Write ONLY the hook. No explanations or meta-commentary.`;
+
+    return [
+        { role: 'system', content: systemContent },
+        { role: 'user', content: userContent }
+    ];
 }
 
 // ============================================
@@ -991,6 +1402,12 @@ async function generateScript() {
     state.promptTemplate = prompt;
     state.isGenerating = true;
 
+    // Load generation history from localStorage
+    const savedHistory = localStorage.getItem('scriptBuilder_generationHistory');
+    if (savedHistory) {
+        state.generationHistory = JSON.parse(savedHistory);
+    }
+
     // Update UI
     document.getElementById('generateBtn').disabled = true;
     document.getElementById('emptyState').classList.add('hidden');
@@ -1001,24 +1418,26 @@ async function generateScript() {
         // STAGE 1: Generate Outline
         updateProgress(1, 'Creating script outline...');
         switchTab('outline');
-        const outlinePrompt = buildOutlinePrompt();
-        state.generated.outline = await callOpenRouter(outlinePrompt, state.settings.outlineModel);
+        const outlineMessages = buildOutlineMessages();
+        console.log('[ScriptBuilder] Outline system message:', outlineMessages[0].content.slice(0, 200) + '...');
+        console.log('[ScriptBuilder] Anti-repetition active:', outlineMessages[1].content.includes('AVOID THESE'));
+        state.generated.outline = await callOpenRouter(outlineMessages, state.settings.outlineModel, { temperature: state.settings.outlineTemp });
         document.getElementById('outlineText').textContent = state.generated.outline;
         document.getElementById('outlineContent').classList.remove('hidden');
 
         // STAGE 2: Generate Script
         updateProgress(2, 'Writing full script...');
         switchTab('script');
-        const scriptPrompt = buildScriptPrompt(state.generated.outline);
-        state.generated.script = await callOpenRouter(scriptPrompt, state.settings.scriptModel);
+        const scriptMessages = buildScriptMessages(state.generated.outline);
+        state.generated.script = await callOpenRouter(scriptMessages, state.settings.scriptModel, { temperature: state.settings.scriptTemp });
         document.getElementById('scriptText').innerHTML = formatScriptText(state.generated.script);
         document.getElementById('scriptContent').classList.remove('hidden');
 
         // STAGE 3: Generate Hook
         updateProgress(3, 'Crafting compelling hook...');
         switchTab('hook');
-        const hookPrompt = buildHookPrompt(state.generated.script);
-        state.generated.hook = await callOpenRouter(hookPrompt, state.settings.hookModel);
+        const hookMessages = buildHookMessages(state.generated.script);
+        state.generated.hook = await callOpenRouter(hookMessages, state.settings.hookModel, { temperature: state.settings.hookTemp });
         document.getElementById('hookText').innerHTML = formatScriptText(state.generated.hook);
         document.getElementById('hookContent').classList.remove('hidden');
 
@@ -1026,6 +1445,9 @@ async function generateScript() {
         state.generated.final = state.generated.hook + '\n\n' + state.generated.script;
         document.getElementById('finalText').innerHTML = formatScriptText(state.generated.final);
         document.getElementById('finalContent').classList.remove('hidden');
+
+        // Save to generation history
+        saveGenerationHistory();
 
         // Mark complete
         markAllComplete();
@@ -1043,6 +1465,32 @@ async function generateScript() {
         state.isGenerating = false;
         document.getElementById('generateBtn').disabled = false;
     }
+}
+
+function saveGenerationHistory() {
+    // Extract fingerprint from first sentence of each paragraph
+    const paragraphs = state.generated.script.split('\n\n').filter(p => p.trim());
+    const fingerprint = paragraphs.slice(0, 5).map(p => {
+        const firstSentence = p.split(/[.!?]/)[0]?.trim() || '';
+        return firstSentence.slice(0, 60);
+    }).join(' | ');
+
+    const params = getParameterDetails();
+    const entry = {
+        topic: state.promptTemplate.slice(0, 80),
+        timestamp: Date.now(),
+        paramsUsed: `${params.narrativeStyle?.name}, ${params.structure?.name}, ${params.tone?.name}, ${params.constraint?.name}, ${params.persona?.name || 'none'}, ${params.lens?.name || 'none'}`,
+        fingerprint: fingerprint
+    };
+
+    state.generationHistory.push(entry);
+
+    // Keep only last 10
+    if (state.generationHistory.length > 10) {
+        state.generationHistory = state.generationHistory.slice(-10);
+    }
+
+    localStorage.setItem('scriptBuilder_generationHistory', JSON.stringify(state.generationHistory));
 }
 
 function formatScriptText(text) {

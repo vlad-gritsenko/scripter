@@ -1,3 +1,0 @@
-1. Web app should be able to have different templates/pages for different script niches. Each template should be able to save all the settings.
-2. Make light theme
-3. Should be an option to download .txt file of the final script.
