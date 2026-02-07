@@ -410,7 +410,7 @@
             <div class="lg:col-span-8 overflow-y-auto space-y-4 sidebar-scroll">
 
                 <!-- Progress Stepper -->
-                <div id="progressSection" class="bg-gray-900 border border-gray-800 rounded-xl p-5 hidden">
+                <div id="progressSection" class="bg-gray-900 border border-gray-800 rounded-xl p-5 hidden mb-4">
                     <div class="flex items-center justify-between mb-4">
                         <!-- Step 1: Outline -->
                         <div class="flex-1 flex flex-col items-center">
@@ -475,51 +475,54 @@
                     </div>
 
                     <!-- Content -->
-                    <div class="p-5">
-                        <!-- Empty State -->
-                        <div id="emptyState" class="text-center py-16">
-                            <div
-                                class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
-                                <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-                                    </path>
-                                </svg>
+                    <div class="p-5 flex flex-col" style="max-height: calc(100vh - 250px);">
+                        <!-- Scrollable Content Area -->
+                        <div class="flex-1 overflow-y-auto content-scroll pr-2">
+                            <!-- Empty State -->
+                            <div id="emptyState" class="text-center py-16">
+                                <div
+                                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-medium text-gray-400 mb-2">No script generated yet</h3>
+                                <p class="text-sm text-gray-500 mb-4">Enter your prompt and configure parameters, then click
+                                    "Generate Script"</p>
                             </div>
-                            <h3 class="text-lg font-medium text-gray-400 mb-2">No script generated yet</h3>
-                            <p class="text-sm text-gray-500 mb-4">Enter your prompt and configure parameters, then click
-                                "Generate Script"</p>
-                        </div>
 
-                        <!-- Outline Content -->
-                        <div id="outlineContent" class="hidden">
-                            <div id="outlineText"
-                                class="prose prose-invert max-w-none text-gray-300 leading-relaxed whitespace-pre-wrap">
+                            <!-- Outline Content -->
+                            <div id="outlineContent" class="hidden">
+                                <div id="outlineText"
+                                    class="prose prose-invert max-w-none text-gray-300 leading-relaxed whitespace-pre-wrap">
+                                </div>
+                            </div>
+
+                            <!-- Script Content -->
+                            <div id="scriptContent" class="hidden">
+                                <div id="scriptText" class="prose prose-invert max-w-none text-gray-200 leading-relaxed">
+                                </div>
+                            </div>
+
+                            <!-- Hook Content -->
+                            <div id="hookContent" class="hidden">
+                                <div id="hookText"
+                                    class="prose prose-invert max-w-none text-gray-200 leading-relaxed text-lg"></div>
+                            </div>
+
+                            <!-- Final Script Content -->
+                            <div id="finalContent" class="hidden">
+                                <div id="finalText" class="prose prose-invert max-w-none text-gray-200 leading-relaxed">
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Script Content -->
-                        <div id="scriptContent" class="hidden">
-                            <div id="scriptText" class="prose prose-invert max-w-none text-gray-200 leading-relaxed">
-                            </div>
-                        </div>
-
-                        <!-- Hook Content -->
-                        <div id="hookContent" class="hidden">
-                            <div id="hookText"
-                                class="prose prose-invert max-w-none text-gray-200 leading-relaxed text-lg"></div>
-                        </div>
-
-                        <!-- Final Script Content -->
-                        <div id="finalContent" class="hidden">
-                            <div id="finalText" class="prose prose-invert max-w-none text-gray-200 leading-relaxed">
-                            </div>
-                        </div>
-
-                        <!-- Action Bar -->
+                        <!-- Action Bar (sticky at bottom) -->
                         <div id="actionBar"
-                            class="hidden flex items-center justify-between mt-6 pt-4 border-t border-gray-800">
+                            class="hidden flex items-center justify-between mt-4 pt-4 border-t border-gray-800 shrink-0">
                             <div class="flex items-center gap-4 text-sm text-gray-500">
                                 <span id="wordCount">0 words</span>
                             </div>

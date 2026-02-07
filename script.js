@@ -603,7 +603,6 @@ function loadSettings() {
     const validModels = [
         'anthropic/claude-sonnet-4.5',
         'anthropic/claude-opus-4.5',
-        'anthropic/claude-opus-4.1',
         'google/gemini-3-pro-preview',
         'google/gemini-2.5-pro-preview',
         'google/gemini-2.5-flash-preview'

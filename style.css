@@ -85,6 +85,32 @@ select {
     background: #9ca3af;
 }
 
+/* Content scroll area */
+.content-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.content-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.content-scroll::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
+    border-radius: 3px;
+}
+
+.content-scroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.light-theme .content-scroll::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+}
+
+.light-theme .content-scroll::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
 /* Parameter Cards Animation */
 .parameter-card {
     opacity: 0;
