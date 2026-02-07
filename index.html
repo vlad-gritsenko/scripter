@@ -349,21 +349,18 @@
                     <h3 class="text-sm font-semibold text-gray-300 mb-3">Temperature (per stage)</h3>
                     <div class="space-y-3">
                         <div class="flex items-center gap-3">
-                            <span class="w-2 h-2 rounded-full bg-blue-500 shrink-0"></span>
                             <span class="text-xs text-gray-400 w-14 shrink-0">Outline</span>
                             <input type="range" id="outlineTempSlider" min="0" max="2" step="0.05" value="0.9"
                                 class="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
                             <span id="outlineTempValue" class="text-xs text-gray-300 w-8 text-right">0.9</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <span class="w-2 h-2 rounded-full bg-green-500 shrink-0"></span>
                             <span class="text-xs text-gray-400 w-14 shrink-0">Script</span>
                             <input type="range" id="scriptTempSlider" min="0" max="2" step="0.05" value="0.7"
                                 class="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
                             <span id="scriptTempValue" class="text-xs text-gray-300 w-8 text-right">0.7</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <span class="w-2 h-2 rounded-full bg-purple-500 shrink-0"></span>
                             <span class="text-xs text-gray-400 w-14 shrink-0">Hook</span>
                             <input type="range" id="hookTempSlider" min="0" max="2" step="0.05" value="0.85"
                                 class="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
@@ -391,57 +388,49 @@
             <div class="lg:col-span-8 space-y-4">
 
                 <!-- Progress Stepper -->
-                <div id="progressSection" class="bg-gray-900 border border-gray-800 rounded-xl p-5 hidden mb-4">
+                <div id="progressSection" class="bg-gray-900 border border-gray-800 rounded-xl p-5 mb-4">
                     <div class="flex items-center justify-between mb-4">
                         <!-- Step 1: Outline -->
                         <div class="flex-1 flex flex-col items-center">
                             <div id="step1Circle"
-                                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
-                                <span id="step1Icon" class="text-gray-400 text-sm">📋</span>
+                                class="step-circle w-10 h-10 rounded-full border-2 border-gray-600 flex items-center justify-center mb-2 transition-all">
                             </div>
-                            <span class="text-xs text-gray-400">Outline</span>
+                            <span class="step-label text-xs text-gray-400">Outline</span>
                         </div>
-                        <div id="step1Line" class="flex-1 h-1 bg-gray-700 mx-2 transition-all"></div>
+                        <div id="step1Line" class="flex-1 h-1 bg-gray-700 mx-2 transition-all rounded-full"></div>
                         <!-- Step 2: Script -->
                         <div class="flex-1 flex flex-col items-center">
                             <div id="step2Circle"
-                                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
-                                <span id="step2Icon" class="text-gray-400 text-sm">📝</span>
+                                class="step-circle w-10 h-10 rounded-full border-2 border-gray-600 flex items-center justify-center mb-2 transition-all">
                             </div>
-                            <span class="text-xs text-gray-400">Script</span>
+                            <span class="step-label text-xs text-gray-400">Script</span>
                         </div>
-                        <div id="step2Line" class="flex-1 h-1 bg-gray-700 mx-2 transition-all"></div>
+                        <div id="step2Line" class="flex-1 h-1 bg-gray-700 mx-2 transition-all rounded-full"></div>
                         <!-- Step 3: Hook -->
                         <div class="flex-1 flex flex-col items-center">
                             <div id="step3Circle"
-                                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
-                                <span id="step3Icon" class="text-gray-400 text-sm">🎣</span>
+                                class="step-circle w-10 h-10 rounded-full border-2 border-gray-600 flex items-center justify-center mb-2 transition-all">
                             </div>
-                            <span class="text-xs text-gray-400">Hook</span>
+                            <span class="step-label text-xs text-gray-400">Hook</span>
                         </div>
-                        <div id="step3Line" class="flex-1 h-1 bg-gray-700 mx-2 transition-all"></div>
+                        <div id="step3Line" class="flex-1 h-1 bg-gray-700 mx-2 transition-all rounded-full"></div>
                         <!-- Step 4: Final Script -->
                         <div class="flex-1 flex flex-col items-center">
                             <div id="step4Circle"
-                                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mb-2 transition-all">
-                                <span id="step4Icon" class="text-gray-400 text-sm">✨</span>
+                                class="step-circle w-10 h-10 rounded-full border-2 border-gray-600 flex items-center justify-center mb-2 transition-all">
                             </div>
-                            <span class="text-xs text-gray-400">Final Script</span>
+                            <span class="step-label text-xs text-gray-400">Final Script</span>
                         </div>
                     </div>
-                    <!-- Progress Bar -->
-                    <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                        <div id="progressBar"
-                            class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
-                            style="width: 0%"></div>
+                    <div class="text-center">
+                        <p id="progressStatus" class="text-sm text-gray-400">Ready to generate</p>
                     </div>
-                    <p id="progressStatus" class="text-sm text-gray-400 mt-3 text-center">Ready to generate...</p>
                 </div>
 
                 <!-- Output Content -->
                 <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden !mt-0">
                     <!-- Content -->
-                    <div class="p-5 flex flex-col" style="max-height: calc(100vh - 250px);">
+                    <div class="p-5 flex flex-col" style="max-height: calc(100vh - 285px);">
                         <!-- Scrollable Content Area -->
                         <div class="flex-1 overflow-y-auto content-scroll pr-2">
                             <!-- Empty State -->

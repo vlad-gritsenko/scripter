@@ -5,7 +5,9 @@
       "Bash(node --check:*)",
       "Bash(git push:*)",
       "Bash(python -m http.server:*)",
-      "Bash(start:*)"
+      "Bash(start:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }

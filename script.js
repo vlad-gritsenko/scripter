@@ -569,6 +569,9 @@ async function init() {
 
     // Bind event listeners
     bindEventListeners();
+
+    // Bind step click listeners for viewing different stages
+    bindStepClickListeners();
 }
 
 function loadSettings() {
@@ -859,7 +862,7 @@ function showContent(content, isOutline = false) {
         contentEl.className = 'prose prose-invert max-w-none text-gray-300 leading-relaxed whitespace-pre-wrap';
         contentEl.textContent = content;
     } else {
-        contentEl.className = 'prose prose-invert max-w-none text-gray-200 leading-relaxed';
+        contentEl.className = 'prose prose-invert max-w-none text-gray-200 leading-relaxed script-content';
         contentEl.innerHTML = formatScriptText(content);
     }
 
@@ -902,84 +905,187 @@ function showProgress(show) {
 }
 
 function updateProgress(step, status) {
-    const progressBar = document.getElementById('progressBar');
     const statusText = document.getElementById('progressStatus');
 
     // Update status text
     statusText.textContent = status;
 
-    // Update progress bar (4 steps total)
-    const progress = (step / 4) * 100;
-    progressBar.style.width = `${progress}%`;
-
-    // Icon map for each step
-    const stepIcons = ['📋', '📝', '🎣', '✨'];
-
     // Update step circles
     for (let i = 1; i <= 4; i++) {
         const circle = document.getElementById(`step${i}Circle`);
-        const icon = document.getElementById(`step${i}Icon`);
         const line = document.getElementById(`step${i}Line`);
 
         if (i < step) {
-            // Completed
-            circle.classList.remove('bg-gray-700', 'bg-blue-600');
-            circle.classList.add('bg-green-600');
-            icon.innerHTML = '<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            // Completed - filled dark green circle with checkmark, clickable
+            circle.className = 'step-circle w-10 h-10 rounded-full bg-green-700 border-2 border-green-700 flex items-center justify-center mb-2 transition-all';
+            circle.innerHTML = '<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>';
             if (line) {
                 line.classList.remove('bg-gray-700');
                 line.classList.add('bg-green-600');
             }
         } else if (i === step) {
-            // Active
-            circle.classList.remove('bg-gray-700', 'bg-green-600');
-            circle.classList.add('bg-blue-600');
-            icon.innerHTML = '<div class="loading-spinner-small"></div>';
+            // Active - filled green circle (currently generating)
+            circle.className = 'step-circle w-10 h-10 rounded-full bg-green-600 border-2 border-green-600 flex items-center justify-center mb-2 transition-all';
+            circle.innerHTML = '';
         } else {
-            // Pending
-            circle.classList.remove('bg-blue-600', 'bg-green-600');
-            circle.classList.add('bg-gray-700');
-            icon.innerHTML = `<span class="text-sm">${stepIcons[i - 1]}</span>`;
-            icon.className = 'text-gray-400';
+            // Pending - grey outlined circle
+            circle.className = 'step-circle w-10 h-10 rounded-full border-2 border-gray-600 flex items-center justify-center mb-2 transition-all';
+            circle.innerHTML = '';
         }
     }
 }
 
 function resetProgress() {
-    const stepIcons = ['📋', '📝', '🎣', '✨'];
-
     for (let i = 1; i <= 4; i++) {
         const circle = document.getElementById(`step${i}Circle`);
-        const icon = document.getElementById(`step${i}Icon`);
         const line = document.getElementById(`step${i}Line`);
 
-        circle.classList.remove('bg-blue-600', 'bg-green-600');
-        circle.classList.add('bg-gray-700');
-        icon.innerHTML = `<span class="text-sm">${stepIcons[i - 1]}</span>`;
-        icon.className = 'text-gray-400';
+        // Reset to grey outlined circles
+        circle.className = 'step-circle w-10 h-10 rounded-full border-2 border-gray-600 flex items-center justify-center mb-2 transition-all';
+        circle.innerHTML = '';
         if (line) {
             line.classList.remove('bg-green-600');
             line.classList.add('bg-gray-700');
         }
     }
-    document.getElementById('progressBar').style.width = '0%';
+
+    // Reset generated content
+    state.generated = {
+        outline: '',
+        script: '',
+        hook: '',
+        final: ''
+    };
+
+    // Reset view step
+    currentViewStep = 4;
+
+    // Update clickability
+    updateStepClickability();
 }
 
 function markAllComplete() {
     for (let i = 1; i <= 4; i++) {
         const circle = document.getElementById(`step${i}Circle`);
-        const icon = document.getElementById(`step${i}Icon`);
         const line = document.getElementById(`step${i}Line`);
 
-        circle.classList.remove('bg-gray-700', 'bg-blue-600');
-        circle.classList.add('bg-green-600');
-        icon.innerHTML = '<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+        // All steps completed - filled dark green circles with checkmarks, clickable
+        circle.className = 'step-circle w-10 h-10 rounded-full bg-green-700 border-2 border-green-700 flex items-center justify-center mb-2 transition-all';
+        circle.innerHTML = '<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>';
         if (line) {
             line.classList.remove('bg-gray-700');
             line.classList.add('bg-green-600');
         }
     }
-    document.getElementById('progressBar').style.width = '100%';
+}
+
+// ============================================
+// 5.1 STEP NAVIGATION
+// ============================================
+
+let currentViewStep = 4; // Track which step's content is currently displayed (default to final)
+
+function viewStepContent(stepNumber) {
+    // Don't allow viewing steps that haven't been generated yet
+    const stepContentMap = {
+        1: state.generated.outline,
+        2: state.generated.script,
+        3: state.generated.hook,
+        4: state.generated.final
+    };
+
+    const content = stepContentMap[stepNumber];
+    if (!content) return;
+
+    currentViewStep = stepNumber;
+
+    // Update visual indicator on circles
+    for (let i = 1; i <= 4; i++) {
+        const circle = document.getElementById(`step${i}Circle`);
+        const label = document.querySelector('.step-label');
+        const isCompleted = stepContentMap[i] !== '';
+
+        if (isCompleted) {
+            // Keep the checkmark SVG
+            circle.innerHTML = '<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>';
+
+            if (i === stepNumber) {
+                // Currently viewed step - highlighted with brighter green and ring
+                circle.className = 'step-circle w-10 h-10 rounded-full bg-green-600 border-2 border-green-600 flex items-center justify-center mb-2 transition-all ring-4 ring-green-500/50';
+                label.classList.add = "text-green-400"
+            } else {
+                // Other completed steps - darker green
+                circle.className = 'step-circle w-10 h-10 rounded-full bg-green-700 border-2 border-green-700 flex items-center justify-center mb-2 transition-all';
+            }
+        }
+    }
+
+    // Display the content
+    if (stepNumber === 1) {
+        // Outline - show as plain text
+        showContent(content, true);
+    } else {
+        // Script, Hook, or Final - show with formatting
+        showContent(content, false);
+    }
+
+    // Update status text
+    const stepNames = {
+        1: 'Viewing: Outline',
+        2: 'Viewing: Script',
+        3: 'Viewing: Hook',
+        4: 'Viewing: Final Script'
+    };
+    document.getElementById('progressStatus').textContent = stepNames[stepNumber];
+}
+
+function updateStepClickability() {
+    const stepContentMap = {
+        1: state.generated.outline,
+        2: state.generated.script,
+        3: state.generated.hook,
+        4: state.generated.final
+    };
+
+    for (let i = 1; i <= 4; i++) {
+        const circle = document.getElementById(`step${i}Circle`);
+        const container = circle?.closest('.flex-1');
+        const label = container?.querySelector('span');
+
+        if (container && stepContentMap[i]) {
+            container.classList.add('step-container-clickable');
+            if (label) {
+                label.classList.add('step-label');
+            }
+        } else if (container) {
+            container.classList.remove('step-container-clickable');
+            if (label) {
+                label.classList.remove('step-label');
+            }
+        }
+    }
+}
+
+function bindStepClickListeners() {
+    for (let i = 1; i <= 4; i++) {
+        const circle = document.getElementById(`step${i}Circle`);
+        const container = circle?.closest('.flex-1');
+
+        if (container) {
+            container.addEventListener('click', () => {
+                const stepContentMap = {
+                    1: state.generated.outline,
+                    2: state.generated.script,
+                    3: state.generated.hook,
+                    4: state.generated.final
+                };
+
+                if (stepContentMap[i]) {
+                    viewStepContent(i);
+                }
+            });
+        }
+    }
 }
 
 // ============================================
@@ -1338,7 +1444,6 @@ async function generateScript() {
     // Update UI
     document.getElementById('generateBtn').disabled = true;
     document.getElementById('actionBar').classList.add('hidden');
-    showProgress(true);
     resetProgress();
 
     try {
@@ -1349,6 +1454,7 @@ async function generateScript() {
         console.log('[ScriptBuilder] Outline system message:', outlineMessages[0].content.slice(0, 200) + '...');
         console.log('[ScriptBuilder] Anti-repetition active:', outlineMessages[1].content.includes('AVOID THESE'));
         state.generated.outline = await callOpenRouter(outlineMessages, state.settings.outlineModel, { temperature: state.settings.outlineTemp });
+        updateStepClickability();
         showContent(state.generated.outline, true);
 
         // STAGE 2: Generate Script
@@ -1356,6 +1462,7 @@ async function generateScript() {
         showLoading('Writing full script...');
         const scriptMessages = buildScriptMessages(state.generated.outline);
         state.generated.script = await callOpenRouter(scriptMessages, state.settings.scriptModel, { temperature: state.settings.scriptTemp });
+        updateStepClickability();
         showContent(state.generated.script);
 
         // STAGE 3: Generate Hook
@@ -1363,6 +1470,7 @@ async function generateScript() {
         showLoading('Crafting compelling hook...');
         const hookMessages = buildHookMessages(state.generated.script);
         state.generated.hook = await callOpenRouter(hookMessages, state.settings.hookModel, { temperature: state.settings.hookTemp });
+        updateStepClickability();
         showContent(state.generated.hook);
 
         // STAGE 4: Combine into final script
@@ -1371,6 +1479,7 @@ async function generateScript() {
         // Small delay to show the final step
         await new Promise(resolve => setTimeout(resolve, 500));
         state.generated.final = state.generated.hook + '\n\n' + state.generated.script;
+        updateStepClickability();
         showContent(state.generated.final);
 
         // Save to generation history
@@ -1378,6 +1487,7 @@ async function generateScript() {
 
         // Mark complete
         markAllComplete();
+        currentViewStep = 4; // Set to final script view
         document.getElementById('progressStatus').textContent = 'Script generation complete!';
 
         // Show action bar
@@ -1424,10 +1534,16 @@ function saveGenerationHistory() {
 
 function formatScriptText(text) {
     // Convert paragraphs to HTML
-    return text.split('\n\n')
-        .filter(p => p.trim())
-        .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
-        .join('');
+    const paragraphs = text.split('\n\n').filter(p => p.trim());
+
+    return paragraphs.map((p, index) => {
+        const content = p.replace(/\n/g, '<br>');
+        // Add drop-cap class to first paragraph
+        if (index === 0) {
+            return `<p class="first-paragraph">${content}</p>`;
+        }
+        return `<p>${content}</p>`;
+    }).join('');
 }
 
 // ============================================

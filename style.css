@@ -149,15 +149,6 @@ select {
     text-indent: 0;
 }
 
-#finalText p:first-child::first-letter {
-    font-size: 3rem;
-    font-weight: bold;
-    float: left;
-    line-height: 1;
-    margin-right: 0.5rem;
-    color: #ffbe1a;
-}
-
 /* Outline Text Styling */
 #outlineText {
     font-family: 'Consolas', 'Monaco', monospace;
@@ -240,11 +231,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transform: scale(1.1);
 }
 
-/* Diversity Badge Colors */
-.diversity-low { color: #ef4444; }
-.diversity-medium { color: #f59e0b; }
-.diversity-high { color: #10b981; }
-
 /* Tooltip Styles */
 [data-tooltip] {
     position: relative;
@@ -274,12 +260,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
 @media (max-width: 1024px) {
     #scenarioText {
         font-size: 1rem;
-    }
-}
-
-@media (max-width: 640px) {
-    #scenarioText p:first-child::first-letter {
-        font-size: 2.5rem;
     }
 }
 
@@ -459,9 +439,17 @@ input[type="range"]::-webkit-slider-thumb:hover {
     background: #e5e7eb;
 }
 
-/* Drop Cap Color */
-.light-theme #finalText p:first-child::first-letter {
-    color: #e6a800;
+/* ============================================
+   SCRIPT CONTENT STYLING
+   ============================================ */
+
+/* Paragraph spacing for better readability */
+.script-content p {
+    margin-bottom: 1.25rem;
+}
+
+.script-content p:last-child {
+    margin-bottom: 0;
 }
 
 /* ============================================
@@ -495,4 +483,40 @@ textarea {
 /* Light theme adjustments for collapsible sections */
 .light-theme button[onclick*="toggleSection"]:hover {
     background-color: #f3f4f6 !important;
+}
+
+/* ============================================
+   PROGRESS STEPPER CLICKABLE STYLES
+   ============================================ */
+
+/* Make completed step containers clickable */
+.step-container-clickable {
+    cursor: pointer;
+}
+
+/* Hover effect on container - affects circle background and text color */
+.step-container-clickable:hover .step-circle {
+    background-color: #059669 !important;
+}
+
+.step-container-clickable:hover .step-label {
+    color: #10b981 !important;
+}
+
+.light-theme .step-container-clickable:hover .step-label {
+    color: #059669 !important;
+}
+
+/* Remove focus outline from circles */
+.step-circle:focus {
+    outline: none;
+}
+
+/* Remove default hover effects from child elements */
+.step-circle {
+    pointer-events: none;
+}
+
+.step-label {
+    pointer-events: none;
 }
