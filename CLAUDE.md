@@ -1,51 +1,100 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working with code in this repository.
 
 ## Project Overview
 
-Script Builder — a browser-based SPA for AI-powered video script generation. Uses vanilla HTML/CSS/JS with no build system, no frameworks, and no dependencies to install.
+Scripter — a niche-based video script generation SPA. Vanilla HTML/CSS/JS frontend deployed on Cloudflare Pages. Backend is Cloudflare Pages Functions that act as a secure proxy to OpenRouter, keeping prompts and API keys off the client.
 
-## Running the App
+## Running Locally
 
-Open `index.html` directly in a browser, or serve via any static server:
 ```bash
-python -m http.server 8000
+# Requires Cloudflare Wrangler CLI
+npx wrangler pages dev .
 ```
-No build, test, or lint commands exist. There is no package.json.
+
+This serves both the static files and the Pages Functions at `http://localhost:8788`.
+
+For local dev, open Settings in the app and set the API Endpoint to `http://localhost:8788` (or leave empty if wrangler is serving everything).
+
+**Note:** You must set environment variable secrets locally with:
+```bash
+npx wrangler pages dev . --binding OPENROUTER_API_KEY=sk-or-...
+```
+
+Or create a `.dev.vars` file (gitignored) with:
+```
+OPENROUTER_API_KEY=sk-or-...
+NICHE_WEAPONS_PROMPT=<your weapons master prompt with {{PLACEHOLDER}} tokens>
+STORYTELLING_PROMPT=<storytelling framework>
+HOOK_PROMPT=<hook writing instructions>
+ANTIPATTERN_PROMPT=<AI slop removal instructions>
+```
 
 ## Architecture
 
-**Three files make up the entire app:**
-- `index.html` — UI structure, loads Tailwind CSS and Google Fonts via CDN
-- `script.js` — All application logic (~1060 lines, organized into 9 labeled sections)
-- `style.css` — Custom styles including light/dark theme overrides and animations
+**Client (static files):**
+- `index.html` — UI: fixed sidebar + scrollable main content
+- `script.js` — App logic: niche system, dynamic forms, 2-stage pipeline, streaming
+- `style.css` — Styles: sidebar layout, themes, content display
 
-**Two instruction files are loaded at runtime via fetch:**
-- `STORYTELLING.txt` — JSON storytelling framework used as system prompt context
-- `HOOK.txt` — JSON hook-writing instructions used as system prompt context
+**Backend (Cloudflare Pages Functions):**
+- `functions/api/niches.js` — GET endpoint: returns niche schemas (no prompt text)
+- `functions/api/generate.js` — POST endpoint: assembles prompts from env vars, proxies to OpenRouter
 
-### Generation Pipeline
+## Security Model
 
-The core flow is a 3-stage AI generation pipeline, each stage potentially using a different model:
-1. **Outline** — Creates a script blueprint from user's niche prompt + 5 randomizable parameters
-2. **Script** — Writes the full script based on the outline
-3. **Hook** — Generates a compelling opening hook
+Prompts are NEVER stored in the client code. They live as encrypted environment variables in the Cloudflare Pages dashboard:
 
-Orchestrated by `generateScript()` which calls `callOpenRouter()` for each stage sequentially.
+| Variable | Description |
+|---|---|
+| `OPENROUTER_API_KEY` | OpenRouter API key |
+| `NICHE_WEAPONS_PROMPT` | Master prompt for Weapons niche (with `{{PLACEHOLDER}}` tokens) |
+| `STORYTELLING_PROMPT` | Storytelling framework injected as system context |
+| `HOOK_PROMPT` | Hook writing principles injected as system context |
+| `ANTIPATTERN_PROMPT` | AI slop removal instructions for the Polish stage |
 
-### State Management
+## Generation Pipeline
 
-Single `state` object holds all app state. Persisted to localStorage using keys prefixed with `scriptBuilder_` (e.g., `scriptBuilder_templates`, `scriptBuilder_settings`, `scriptBuilder_theme`).
+Two-stage pipeline:
 
-### Template System
+1. **Write** (Claude Opus 4.6, temp ~0.8): Client sends `{ niche, placeholders, stage: "write" }` → Function substitutes `{{PLACEHOLDER}}` tokens into master prompt → calls OpenRouter → streams response
+2. **Polish** (Claude Sonnet 4.6, temp ~0.3): Client sends `{ draft, stage: "clean" }` → Function applies antipattern prompt → calls OpenRouter → streams cleaned response
 
-Templates store per-niche configurations (prompt, script length, parameters, storytelling/hook prompts). Stored in localStorage. The "default" template cannot be deleted or renamed.
+## Niche System
 
-### Theme System
+Each niche is defined in `functions/api/niches.js` as a schema object. The schema only contains:
+- Niche ID, name, icon
+- Placeholder definitions (type, label, options for dropdowns)
 
-Dark theme is default. Light theme applies a `light-theme` class to `<body>` and overrides colors with `!important` rules in `style.css`.
+The actual master prompt lives in an env var (`NICHE_WEAPONS_PROMPT`), never in the schema.
 
-### API Integration
+**Adding a new niche:**
+1. Add schema entry to `NICHES` array in `functions/api/niches.js`
+2. Add a prompt key to `NICHE_PROMPT_KEYS` in `functions/api/generate.js`
+3. Set the env var in Cloudflare Pages dashboard
+4. Zero client changes needed — the sidebar and form adapt automatically
 
-All AI calls go through `callOpenRouter()` which POSTs to `https://openrouter.ai/api/v1/chat/completions` with Bearer token auth. Requires user to configure an OpenRouter API key in the settings modal.
+## Placeholder Format
+
+Master prompts use `{{PLACEHOLDER_NAME}}` syntax:
+```
+Write a script about {{WEAPON_NAME}} from {{ERA_OF_CONFLICT}}.
+Use a {{HOOK_TYPE}} hook and {{STRUCTURE_TYPE}} structure.
+Sources: {{SOURCE_LINKS}}
+```
+
+## State Management
+
+Single `state` object. localStorage keys (prefix `scripter_`):
+- `scripter_theme` — dark/light
+- `scripter_currentNiche` — last selected niche ID
+- `scripter_formValues_{nicheId}` — saved form values per niche
+- `scripter_settings` — API endpoint URL, temperatures
+
+## Deploying to Cloudflare Pages
+
+1. Push repo to GitHub
+2. Connect to Cloudflare Pages (Build settings: no build command, output directory `/`)
+3. Set environment variables in Pages dashboard → Settings → Environment variables
+4. Deploy
